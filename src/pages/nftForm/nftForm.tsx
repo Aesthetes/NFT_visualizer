@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom";
 import "./nftForm.scss";
 import background from "../../images/background.jpg";
 import Navbar from "../../components/navbar/Navbar";
+import SideMenu from "../../components/sideMenu/SideMenu";
 
 const NftForm = () => {
   let history = useHistory();
@@ -16,8 +17,9 @@ const NftForm = () => {
       }}
     >
       <Navbar />
+      <SideMenu sideMenuVisible />
       <div className="form-container">
-        <h3>Visualize a NFT</h3>
+        <h1>Visualize a NFT</h1>
         <p>
           Visualize all NFTs minted according to the Aesthetes's standards.
           <br />
@@ -25,9 +27,11 @@ const NftForm = () => {
           Join the XRPL NFTs revolution
         </p>
 
-        <div className="input-container">
-          <input placeholder="Address of the NFT Issuer" />
-          <input placeholder="Identifier of the NFT (currency name)" />
+        <div className="form">
+          <div className="form-input">
+            <input placeholder="Address of the NFT Issuer" />
+            <input placeholder="Identifier of the NFT (currency name)" />
+          </div>
           <div className="radio-btn-container">
             <div className="radio-container">
               <input type="radio" name="testnet" checked />
