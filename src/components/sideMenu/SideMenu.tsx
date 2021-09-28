@@ -22,11 +22,21 @@ const SideMenu: React.FC<SideMenuProps> = ({ sideMenuVisible }) => {
     >
       {sideMenuVisible && (
         <>
-          <FaTwitter color="white" />
-          <TiSocialLinkedin color="white" size="1.5rem" />
-          <FaInstagram color="white" size="1.5rem" />
-          <TiSocialFacebook color="white" size="1.5rem" />
-          <AiOutlineYoutube color="white" size="1.5rem" />
+          <div className="social-icon" style={{ cursor: "pointer" }}>
+            <FaTwitter color="white" />
+          </div>
+          <div className="social-icon" style={{ cursor: "pointer" }}>
+            <TiSocialLinkedin color="white" size="1.5rem" />
+          </div>
+          <div className="social-icon" style={{ cursor: "pointer" }}>
+            <FaInstagram color="white" size="1.5rem" />
+          </div>
+          <div className="social-icon" style={{ cursor: "pointer" }}>
+            <TiSocialFacebook color="white" size="1.5rem" />
+          </div>
+          <div className="social-icon" style={{ cursor: "pointer" }}>
+            <AiOutlineYoutube color="white" size="1.5rem" />
+          </div>
         </>
       )}
     </div>

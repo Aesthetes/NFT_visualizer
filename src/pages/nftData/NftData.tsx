@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./nftData.scss";
 import artwork from "../../images/mainOpera.jpg";
 import Navbar from "../../components/navbar/Navbar";
@@ -11,8 +10,6 @@ import "swiper/swiper-bundle.css";
 SwiperCore.use([Navigation, Pagination]);
 
 const NftData = () => {
-  const [goToDetails, setGoToDetails] = useState(false);
-
   return (
     <div id="single-nft-container">
       <Navbar />
@@ -46,10 +43,7 @@ const NftData = () => {
             </div>
             <div className="go-to-details">
               <p>NFT Info</p>
-              <div
-                className="arrow-container"
-                onClick={() => setGoToDetails(!goToDetails)}
-              >
+              <div className="arrow-container">
                 <RightArrow />
               </div>
             </div>
@@ -58,14 +52,22 @@ const NftData = () => {
 
         <SwiperSlide>
           <div id="wrapper">
-            <div id="artwork-container-small">
+            <div className="artwork-container-small">
               <img id="artwork-small" alt="opera" src={artwork} />
+              <div className="third-row">
+                <div className="go-back">
+                  <div className="left-arrow-container">
+                    <p className="go-back-text">BACK to Visualizer</p>
+                    <LeftArrow />
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="data-container">
+              <div className="nft-title-info">
+                <p>NFT Info</p>
+              </div>
               <div className="first-row">
-                <div className="nft-title-info">
-                  <p color="white">NFT Info</p>
-                </div>
                 <div className="nft-info">
                   <div className="name-container">
                     <p className="artwork-details-label">Name:</p>
@@ -78,10 +80,10 @@ const NftData = () => {
                   <div className="description-container">
                     <p className="nft-description">Description:</p>
                     <p>
-                      Name: Lorem ipsum Author: Lorem Ipsum Description: Lorem
-                      ipsum dolor sit amet, consectetur adipisci elit, sed
-                      eiusmod tempor incidunt ut labore et dolore magna aliqua.
-                      Ut enim ad minim veniam, quis nostrum exercitationem ullam
+                      Lorem ipsum Author: Lorem Ipsum Description: Lorem ipsum
+                      dolor sit amet, consectetur adipisci elit, sed eiusmod
+                      tempor incidunt ut labore et dolore magna aliqua. Ut enim
+                      ad minim veniam, quis nostrum exercitationem ullam
                       corporis suscipit laboriosam, nisi ut aliquid ex ea
                       commodi consequatur.
                     </p>
@@ -89,20 +91,14 @@ const NftData = () => {
                 </div>
               </div>
               <div className="second-row">
-                <div className="go-back">
-                  <p className="go-back-text">BACK to Visualizer</p>
-                  <div className="left-arrow-container">
-                    <LeftArrow />
-                  </div>
-                </div>
                 <div className="links-container">
                   <div className="links-row">
                     <div className="link-label">
                       <p>Digital artwork</p>
                     </div>
                     <div className="links-btn-container">
-                      <button>PRIMARY LINK</button>
-                      <button>BACKUP LINK</button>
+                      <button className="link-btn">PRIMARY LINK</button>
+                      <button className="link-btn">BACKUP LINK</button>
                     </div>
                   </div>
                   <div className="links-row">
@@ -110,7 +106,7 @@ const NftData = () => {
                       <p>Metadata viewer</p>
                     </div>
                     <div className="links-btn-container">
-                      <button>NFT METADATA</button>
+                      <button className="link-btn">NFT METADATA</button>
                     </div>
                   </div>
                   <div className="links-row">
@@ -118,8 +114,8 @@ const NftData = () => {
                       <p>On-chain information</p>
                     </div>
                     <div className="links-btn-container">
-                      <button>ISSUING DATA</button>
-                      <button>OWNER ACCOUNT</button>
+                      <button className="link-btn">ISSUING DATA</button>
+                      <button className="link-btn">OWNER ACCOUNT</button>
                     </div>
                   </div>
                 </div>
