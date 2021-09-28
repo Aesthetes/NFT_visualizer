@@ -2,22 +2,27 @@ import React from "react";
 import { TiSocialLinkedin, TiSocialFacebook } from "react-icons/ti";
 import { FaTwitter, FaInstagram } from "react-icons/fa";
 import { AiOutlineYoutube } from "react-icons/ai";
+import { useMediaQuery } from "react-responsive";
 type SideMenuProps = {
   sideMenuVisible: boolean;
 };
 const SideMenu: React.FC<SideMenuProps> = ({ sideMenuVisible }) => {
+  const isMobile = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
   return (
     <div
       style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: isMobile ? "row" : "column",
         position: "absolute",
         left: 0,
         justifyContent: "space-evenly",
-        top: "50%",
+        top: isMobile ? "100%" : "50%",
         transform: "translate(0%, -50%)",
-        height: "40vh",
-        paddingLeft: "4%",
+        height: !isMobile ? "40vh" : "20vh",
+        paddingLeft: !isMobile ? "4%" : "0",
+        width: isMobile ? "100%" : "auto",
       }}
     >
       {sideMenuVisible && (
