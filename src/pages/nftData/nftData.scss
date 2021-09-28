@@ -67,7 +67,12 @@
 
 /* SECOND PAGE */
 
-#artwork-container-small {
+#wrapper {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+}
+.artwork-container-small {
     width: 60%;
     height: 100%;
     padding-left: 20px;
@@ -82,19 +87,16 @@
     height: 80%;   
 }
 
+.data-container {
+    width: 40%;
+}
+
 .first-row {
-    position: absolute;
-    top: 100px;
-    height: 250px;
     border: 1px solid red;
-    width: 100%;
-    justify-content: flex-end;
-    display: flex;
-    padding-right: 1rem;
     
 }
 
-    .nft-title-info {
+.nft-title-info {
     
 }
 .nft-info {
@@ -114,15 +116,7 @@
 }
 
 .second-row {
-    position: absolute;
-    height: 250px;
     border: 1px solid red;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    //align-items: center;
-    padding-right: 1rem;
-    bottom: 10%;
 }
 
 .go-back{
