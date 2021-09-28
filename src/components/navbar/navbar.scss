@@ -1,0 +1,18 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    height: 5rem;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    color:white;
+
+    .nav-title {
+        margin-left: 2rem;
+    }
+
+    .nav-menu {
+        margin-right: 2rem;
+    }
+}
