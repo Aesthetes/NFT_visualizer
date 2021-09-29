@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Drawer from "@material-ui/core/Drawer";
 import artwork from "../../images/mainOpera.jpg";
@@ -11,14 +11,69 @@ import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import { useMediaQuery } from "react-responsive";
 import "./nftData.scss";
+import { useQuery } from "react-query";
+
+import { getNFTMetadata, getNFTImage } from "../../imports/scripts/NFT_handler";
 
 SwiperCore.use([Navigation, Pagination]);
 
-const NftData = () => {
+type NftData = {
+  identifier: string;
+  actual_nft_owner: string;
+  detected_hot_wallet_obj: string;
+  detected_minter_obj: string;
+  metadata_cid: string;
+  detected_cti: string;
+  metadata_tx_hash: string;
+  name: string;
+  description: string;
+  author: string;
+  content_cid: string;
+};
+
+const NftData = (props: any) => {
+  const { match } = props;
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [issuer, setIssuer] = useState(match.params.issuer);
+  const [id, setId] = useState(match.params.id);
+  const [activeQuery, setActiveQuery] = useState(false);
+  const [artwork, setArtwork] = useState<string>("");
+  const [nftData, setNftData] = useState<any>({
+    identifier: "",
+    actual_nft_owner: "",
+    detected_hot_wallet_obj: "",
+    detected_minter_obj: "",
+    metadata_cid: "",
+    detected_cti: "",
+    metadata_tx_hash: "",
+    name: "",
+    description: "",
+    author: "",
+    content_cid: "",
+  });
+
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
+
+  const { isFetching: loading } = useQuery(
+    "featchNFTData",
+    async () => {
+      setNftData(await getNFTMetadata(issuer, id, match.params.network));
+    },
+    {
+      enabled: activeQuery,
+    }
+  );
+
+  useEffect(() => {
+    if (issuer && id) {
+      setActiveQuery(true);
+    } else {
+      console.log("ERRORE");
+    }
+  }, []);
+
   return (
     <div id="single-nft-container">
       <Navbar />
@@ -46,11 +101,11 @@ const NftData = () => {
                 <div className="artwork-details">
                   <div className="name-container">
                     <p className="artwork-details-label">Name:</p>
-                    <p>Lorem ipsum</p>
+                    <p>{nftData?.name}</p>
                   </div>
                   <div className="author-container">
                     <p className="artwork-details-label">Author:</p>
-                    <p>Lorem ipsum</p>
+                    <p>{nftData?.author}</p>
                   </div>
                 </div>
                 <div className="go-to-details">
@@ -83,11 +138,11 @@ const NftData = () => {
                     <div className="nft-info">
                       <div className="name-container">
                         <p className="artwork-details-label">Name:</p>
-                        <p>Lorem ipsum</p>
+                        <p>{nftData?.name}</p>
                       </div>
                       <div className="author-container">
                         <p className="artwork-details-label">Author:</p>
-                        <p>Lorem ipsum</p>
+                        <p>{nftData?.author}</p>
                       </div>
                       <div className="description-container">
                         <p className="nft-description">Description:</p>
@@ -144,11 +199,11 @@ const NftData = () => {
             <div className="mobile-artwork-details">
               <div className="name-container">
                 <p className="mobile-artwork-details-label">Name:</p>
-                <p>Lorem ipsum</p>
+                <p>{nftData?.name}</p>
               </div>
               <div className="author-container">
                 <p className="mobile-artwork-details-label">Author:</p>
-                <p>Lorem ipsum</p>
+                <p>{nftData?.author}</p>
               </div>
             </div>
             <div className="mobile-artwork-container">
@@ -181,14 +236,7 @@ const NftData = () => {
                       <h3>NFT Info</h3>
                       <p className="nft-description">Description:</p>
                     </div>
-                    <p>
-                      Lorem ipsum Author: Lorem Ipsum Description: Lorem ipsum
-                      dolor sit amet, consectetur adipisci elit, sed eiusmod
-                      tempor incidunt ut labore et dolore magna aliqua. Ut enim
-                      ad minim veniam, quis nostrum exercitationem ullam
-                      corporis suscipit laboriosam, nisi ut aliquid ex ea
-                      commodi consequatur.
-                    </p>
+                    <p>{nftData?.description}</p>
                   </div>
                 </div>
 
