@@ -1,6 +1,6 @@
 import NftForm from "./pages/nftForm/nftForm";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NftData from "./pages/nftData/NftData";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 function App() {
   return (

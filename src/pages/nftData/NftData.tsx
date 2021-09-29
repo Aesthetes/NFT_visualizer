@@ -1,16 +1,16 @@
-import "./nftData.scss";
-import artwork from "../../images/mainOpera.jpg";
+import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
+import Drawer from "@material-ui/core/Drawer";
+import artwork from "../../images/mainOpera.jpg";
 import RightArrow from "../../images/rightArrow";
 import LeftArrow from "../../images/leftArrow";
+import { FaChevronUp } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import { useMediaQuery } from "react-responsive";
-import Drawer from "@material-ui/core/Drawer";
-import { FaChevronUp } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-import { useState } from "react";
+import "./nftData.scss";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -140,12 +140,7 @@ const NftData = () => {
 
         {/* MOBILE */}
         {isMobile && (
-          <div
-            className="mobile-container"
-            style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(${artwork})`,
-            }}
-          >
+          <div className="mobile-container">
             <div className="mobile-artwork-details">
               <div className="name-container">
                 <p className="mobile-artwork-details-label">Name:</p>

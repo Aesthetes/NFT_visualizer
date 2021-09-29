@@ -1,21 +1,12 @@
 import { useHistory } from "react-router-dom";
-import "./nftForm.scss";
-import background from "../../images/background.jpg";
 import Navbar from "../../components/navbar/Navbar";
 import SideMenu from "../../components/sideMenu/SideMenu";
+import "./nftForm.scss";
 
 const NftForm = () => {
   let history = useHistory();
   return (
-    <div
-      style={{
-        position: "relative",
-        height: "100vh",
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+    <div id="form-wrapper">
       <Navbar />
       <SideMenu sideMenuVisible />
       <div className="form-container">

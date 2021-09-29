@@ -3,6 +3,7 @@ import { TiSocialLinkedin, TiSocialFacebook } from "react-icons/ti";
 import { FaTwitter, FaInstagram } from "react-icons/fa";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { useMediaQuery } from "react-responsive";
+import "./sideMenu.scss";
 type SideMenuProps = {
   sideMenuVisible: boolean;
 };
@@ -12,34 +13,25 @@ const SideMenu: React.FC<SideMenuProps> = ({ sideMenuVisible }) => {
   });
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: isMobile ? "row" : "column",
-        position: "absolute",
-        left: 0,
-        justifyContent: "space-evenly",
-        top: isMobile ? "100%" : "50%",
-        transform: "translate(0%, -50%)",
-        height: !isMobile ? "40vh" : "20vh",
-        paddingLeft: !isMobile ? "4%" : "0",
-        width: isMobile ? "100%" : "auto",
-      }}
+      className={
+        isMobile ? "mobile-side-menu-container" : "side-menu-container"
+      }
     >
       {sideMenuVisible && (
         <>
-          <div className="social-icon" style={{ cursor: "pointer" }}>
+          <div className="social-icon">
             <FaTwitter color="white" />
           </div>
-          <div className="social-icon" style={{ cursor: "pointer" }}>
+          <div className="social-icon">
             <TiSocialLinkedin color="white" size="1.5rem" />
           </div>
-          <div className="social-icon" style={{ cursor: "pointer" }}>
+          <div className="social-icon">
             <FaInstagram color="white" size="1.5rem" />
           </div>
-          <div className="social-icon" style={{ cursor: "pointer" }}>
+          <div className="social-icon">
             <TiSocialFacebook color="white" size="1.5rem" />
           </div>
-          <div className="social-icon" style={{ cursor: "pointer" }}>
+          <div className="social-icon">
             <AiOutlineYoutube color="white" size="1.5rem" />
           </div>
         </>

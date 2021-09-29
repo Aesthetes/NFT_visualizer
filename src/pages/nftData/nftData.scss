@@ -1,3 +1,8 @@
+$backgroundImageMobile: "../../images/mainOpera.jpg";
+
+.mobile-container {
+  background-image: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(#{$backgroundImageMobile});
+}
 /* FIRST PAGE */
 #single-nft-container {
   position: relative;
