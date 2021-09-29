@@ -1,5 +1,8 @@
 //REQUIRES <script src="https://unpkg.com/ripple-lib@1.10.0/build/ripple-latest-min.js"></script>
+/* global BigInt */
+
 import ripple from "ripple-lib";
+
 import {
   printErrorWithPrefix,
   printWithPrefix,
@@ -71,10 +74,7 @@ export const connectToAServer = async function (
   }
 
   if (!is_connected) {
-    throw new functions.https.HttpsError(
-      "unavailable",
-      "unable to connect to a rippled server"
-    );
+    throw new Error("unavailable", "unable to connect to a rippled server");
   }
 
   setConnectionWatchdogTimer(ripple_api_obj);

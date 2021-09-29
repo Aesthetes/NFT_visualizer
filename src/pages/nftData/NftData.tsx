@@ -37,7 +37,7 @@ const NftData = (props: any) => {
   const [issuer, setIssuer] = useState(match.params.issuer);
   const [id, setId] = useState(match.params.id);
   const [activeQuery, setActiveQuery] = useState(false);
-  const [artwork, setArtwork] = useState<string>("");
+  const [artwork, setArtwork] = useState<any>("");
   const [nftData, setNftData] = useState<any>({
     identifier: "",
     actual_nft_owner: "",
@@ -59,7 +59,11 @@ const NftData = (props: any) => {
   const { isFetching: loading } = useQuery(
     "featchNFTData",
     async () => {
-      setNftData(await getNFTMetadata(issuer, id, match.params.network));
+      setActiveQuery(false);
+      let data = await getNFTMetadata(issuer, id, match.params.network);
+
+      setNftData(data);
+      setArtwork(await getNFTImage(data.content_cid));
     },
     {
       enabled: activeQuery,
@@ -73,6 +77,8 @@ const NftData = (props: any) => {
       console.log("ERRORE");
     }
   }, []);
+
+  console.log("NFTDATA ==>", artwork);
 
   return (
     <div id="single-nft-container">
