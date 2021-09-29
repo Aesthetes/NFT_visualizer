@@ -27,7 +27,7 @@ const Navbar = () => {
           cursor: "pointer",
         }}
       >
-        <HiOutlineMenuAlt4 color="white" size="30" />
+        {/* <HiOutlineMenuAlt4 color="white" size="30" /> */}
       </div>
     </div>
   );

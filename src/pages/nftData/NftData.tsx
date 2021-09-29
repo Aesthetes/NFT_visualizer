@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Drawer from "@material-ui/core/Drawer";
-import artwork from "../../images/mainOpera.jpg";
 import RightArrow from "../../images/rightArrow";
 import LeftArrow from "../../images/leftArrow";
 import { FaChevronUp } from "react-icons/fa";
@@ -76,7 +75,7 @@ const NftData = (props: any) => {
     } else {
       console.log("ERRORE");
     }
-  }, []);
+  }, [id, issuer]);
 
   console.log("NFTDATA ==>", artwork);
 
@@ -166,29 +165,20 @@ const NftData = (props: any) => {
                   <div className="second-row">
                     <div className="links-container">
                       <div className="links-row">
-                        <div className="link-label">
-                          <p>Digital artwork</p>
-                        </div>
                         <div className="links-btn-container">
-                          <button className="link-btn">PRIMARY LINK</button>
-                          <button className="link-btn">BACKUP LINK</button>
-                        </div>
-                      </div>
-                      <div className="links-row">
-                        <div className="link-label">
-                          <p>Metadata viewer</p>
-                        </div>
-                        <div className="links-btn-container">
+                          <button className="link-btn">DIGITAL ARTWORK</button>
                           <button className="link-btn">NFT METADATA</button>
                         </div>
                       </div>
-                      <div className="links-row">
+                      <div className="onchain-info-container">
                         <div className="link-label">
                           <p>On-chain information</p>
                         </div>
-                        <div className="links-btn-container">
-                          <button className="link-btn">ISSUING DATA</button>
-                          <button className="link-btn">OWNER ACCOUNT</button>
+                        <div className="links-row">
+                          <div className="links-btn-container">
+                            <button className="link-btn">ISSUING DATA</button>
+                            <button className="link-btn">OWNER ACCOUNT</button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -222,7 +212,7 @@ const NftData = (props: any) => {
               >
                 <FaChevronUp size="40" />
               </div>
-              NFT nfo
+              NFT Info
             </div>
             <Drawer
               BackdropProps={{ style: { opacity: 0 } }}
@@ -245,20 +235,14 @@ const NftData = (props: any) => {
                     <p>{nftData?.description}</p>
                   </div>
                 </div>
-
-                {/* <div className="link-label">
-                  <p>Digital artwork</p>
-                </div> */}
                 <button className="link-btn">DIGITAL ARTWORK</button>
-                {/* <button className="link-btn">BACKUP LINK</button> */}
-                {/* <div className="link-label"><p>Metadata viewer</p></div> */}
                 <div className="links-btn-container">
                   <button className="link-btn">NFT METADATA</button>
                 </div>
+
                 <div className="link-label">
                   <p>On-chain information</p>
                 </div>
-
                 <button className="link-btn">ISSUING DATA</button>
                 <button className="link-btn">OWNER ACCOUNT</button>
               </div>

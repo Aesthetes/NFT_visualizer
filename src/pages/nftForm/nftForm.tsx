@@ -1,6 +1,5 @@
 //Imports
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { Formik } from "formik";
 
 //Components
@@ -20,7 +19,7 @@ const NftForm = (props: any) => {
   useEffect(() => {
     console.log("MATCH ==>", match);
     setNetwork(match.params.network);
-  }, []);
+  }, [match]);
 
   return (
     <div id="form-wrapper">
