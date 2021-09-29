@@ -2,9 +2,10 @@ import { useHistory } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import SideMenu from "../../components/sideMenu/SideMenu";
 import "./nftForm.scss";
-
+import i18next from "../../imports/i18n/i18n";
 const NftForm = () => {
   let history = useHistory();
+  const t = i18next.t.bind(i18next);
   return (
     <div id="form-wrapper">
       <Navbar />
@@ -35,7 +36,7 @@ const NftForm = () => {
           </div>
           <div className="btn-container">
             <button id="action-btn" onClick={() => history.push("/nft-data")}>
-              VISUALIZE
+              {t("nftForm.visualize")}
             </button>
           </div>
         </div>
