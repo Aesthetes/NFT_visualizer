@@ -1,4 +1,3 @@
-
 .loader-container {
   height: 100vh;
   top: 0;
@@ -6,7 +5,6 @@
   display: grid;
   place-items: center;
   background: black;
-  
 }
 /* FIRST PAGE */
 #single-nft-container {
@@ -37,12 +35,13 @@
   flex-direction: column;
   color: white;
   justify-content: center;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .name-container {
   display: flex;
   padding-bottom: 1em;
-  
+  width: auto;
+
   p {
     margin-right: 8px;
   }
@@ -58,205 +57,203 @@
   font-weight: bolder;
 }
 
-
-
 /* SECOND PAGE */
 
 #wrapper {
   display: flex;
   height: 100vh;
 }
-  .artwork-container-small {
-    width: 60%;
-    height: 100%;
-    padding-left: 20px;
-    display: flex;
-    align-items: center;
-  }
+.artwork-container-small {
+  width: 60%;
+  height: 100%;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+}
 
-  #artwork-small {
-    object-fit: cover;
-    width: 100%;
-    height: 80%;
-  }
+#artwork-small {
+  object-fit: cover;
+  width: 100%;
+  height: 80%;
+}
 
-  .data-container {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    justify-content: center;
-    height: 80%;
-    align-self: center;
-  }
+.data-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  justify-content: center;
+  height: 80%;
+  align-self: center;
+}
 
-  .nft-title-info {
-    text-align: right;
-    color: white;
-    margin: 0 3rem 1rem 0;
-    font-weight: 800;
-    font-size: 24px;
-  }
-  .nft-info {
-    display: flex;
-    flex-direction: column;
-    color: white;
-    justify-content: center;
-    background-color: black;
-    border: 1px solid white;
-    padding: 2rem;
-    margin:0 3rem 0 -10%;
-  }
+.nft-title-info {
+  text-align: right;
+  color: white;
+  margin: 0 3rem 1rem 0;
+  font-weight: 800;
+  font-size: 24px;
+}
+.nft-info {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  background-color: black;
+  border: 1px solid white;
+  padding: 2rem;
+  margin: 0 3rem 0 -10%;
+}
 
-  .nft-description {
-    padding: 1em 0 1em 0;
-  }
+.nft-description {
+  padding: 1em 0 1em 0;
+}
 
-  .second-row {
-    padding-top: 5%;
-    height: 40%;
-    display: flex;
-    justify-content: center;
-  }
+.second-row {
+  padding-top: 5%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+}
 
-  .third-row {
-    position: absolute;
-    bottom: 10em;
-  }
+.third-row {
+  position: absolute;
+  bottom: 10em;
+}
 
-  
+.navigation-arrows {
+  position: absolute;
+  bottom: 8%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
-  .navigation-arrows {
-    position: absolute;
-    bottom: 8%;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-
-    .left-arrow-container {
-      cursor: pointer;
-      color: white;
-    }
-
-    
-    
-
-    .go-to-details {
-      color: white;
-      position: absolute;
-      font-size: 24px;
-      font-weight: bolder;
-      
-    
-      .arrow-container {
-        display: flex;
-        padding-left: 2rem;
-        position: relative;
-        cursor: pointer;
-      }
-    
-      .arrow {
-        position: absolute;
-        z-index: 1;
-      }
-    }
-  }
-  .go-back-text {
-    text-align: center;
-    height: 0px;
-    font-size: 24px;
-      font-weight: bolder;
-      
-  }
-  .go-back {
-    color: white;
-    margin-top: 2rem;
+  .left-arrow-container {
     cursor: pointer;
+    color: white;
   }
 
-  
-
-  .links-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  .go-to-details {
     color: white;
-    justify-content: space-evenly;
-    text-align: center;
-    width: 100%;
-    
-    .links-with-check {
-      position: absolute;
-      top: 3em;
-      left: 1em;
-    }
-    .links-row {
-      width: 70%;
-      margin: 0 auto;
-    }
+    position: absolute;
+    font-size: 24px;
+    font-weight: bolder;
 
-    .link-label {
-      width: 100%;
-    }
-
-    .links-btn-container {
+    .arrow-container {
       display: flex;
-      justify-content: space-evenly;
-      //border: 1px solid red;
+      padding-left: 2rem;
+      position: relative;
+      cursor: pointer;
     }
 
-    .onchain-info-container {
+    .arrow {
+      position: absolute;
+      z-index: 1;
+    }
+  }
+}
+.go-back-text {
+  text-align: center;
+  height: 0px;
+  font-size: 24px;
+  font-weight: bolder;
+}
+.go-back {
+  color: white;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.links-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 100%;
+
+  .links-with-check {
+    position: absolute;
+    top: 3em;
+    left: 1em;
+  }
+  .links-row {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .link-label {
+    width: 100%;
+  }
+
+  .links-btn-container {
+    display: flex;
+    justify-content: space-evenly;
+    //border: 1px solid red;
+  }
+
+  .onchain-info-container {
     height: 30%;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    }
   }
-  .link-btn {
-    padding: 8px 12px;
-    color: white;
-    background-color: black;
-    font-weight: bolder;
-    border-radius: 12px;
-    border: 2px solid white;
-    cursor: pointer;
-    max-width: 200px;
+}
+.link-btn {
+  padding: 8px 12px;
+  color: white;
+  background-color: black;
+  font-weight: bolder;
+  border-radius: 12px;
+  border: 2px solid white;
+  cursor: pointer;
+  max-width: 200px;
+}
+
+/* MOBILE */
+
+.mobile-container {
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-artwork-details {
+  @extend .artwork-details;
+  // position: unset;
+
+  top: 6rem;
+
+  width: auto;
+  height: auto;
+  // margin-top: 5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 1rem;
+
+  @media only screen and (max-height: 570px) {
+    display: none;
   }
+}
 
-  /* MOBILE */
+.mobile-artwork-details-label {
+  @extend .artwork-details-label;
+}
 
-  .mobile-container {
-    background-position: center;
-    background-size: cover;
-    height: 100vh;
+.mobile-artwork-container {
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+
+  #mobile-artwork {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    
-  }
-
-  .mobile-artwork-details {
-   @extend .artwork-details;
-   position: unset;
-   background-color: unset;
-   width: auto;
-   margin-top: 5rem;
-   margin-left: 1rem;
-  }
-
-  .mobile-artwork-details-label {
-    @extend .artwork-details-label;
-  }
-
-  .mobile-artwork-container {
-    width: 90%;
-    margin: 0 auto;
-    position: relative;
-    
-    #mobile-artwork {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    height: 100%;
+    object-fit: contain;
   }
 
   .check {
@@ -265,52 +262,60 @@
     right: 0;
     width: 35%;
   }
+}
 
-  }
+.MuiDrawer-paperAnchorBottom {
+  background-color: black !important;
+  border-radius: 16px;
+}
 
-  .MuiDrawer-paperAnchorBottom {
-    background-color: black !important;
-    border-radius: 16px;
-  }
+.bottom-drawer {
+  color: white;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  height: 10vh;
+  left: 50%;
+  transform: translate(-50%);
+  margin: 0 auto;
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  border-radius: 16px 16px 0 0;
 
-  .bottom-drawer {
-    color: white;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    height: 10vh;
-    left: 50%;
-    transform: translate(-50%);
-    margin: 0 auto;
-    background-color: black;
+  .chevron-container {
     position: absolute;
-    bottom: 0;
-    border-radius: 16px 16px 0 0;
+    bottom: 70%;
+  }
+}
 
-    .chevron-container {
-      position: absolute;
-      bottom: 70%;
-    }
+#drawer-container {
+  background-color: black;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  // height: 72vh;
+
+  height: 70%;
+  width: 100%;
+  margin: 0 auto;
+  overflow-y: auto;
+
+  .close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
   }
 
-  #drawer-container {
-    background-color: black;
-    color: white;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 72vh;
-    width: 95%;
-    margin: 0 auto;
-    padding: 1rem 0;
-    
-    .close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
+  .description-container {
+    margin-top: 1rem;
+
+    .mobile-nft-info {
+      // margin: 0 1rem;
     }
 
     .drawer-headings {
@@ -322,11 +327,10 @@
       }
     }
   }
+}
 
-  @media screen and (max-height: 580px) {
-    .onchain-info-container {
+@media screen and (max-height: 580px) {
+  .onchain-info-container {
     height: 40%;
-    }
   }
-
-
+}
