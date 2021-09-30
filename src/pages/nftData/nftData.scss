@@ -1,5 +1,12 @@
 $backgroundImageMobile: "../../images/mainOpera.jpg";
-
+.loader-container {
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  
+}
 .mobile-container {
   background-image: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(#{$backgroundImageMobile});
 }

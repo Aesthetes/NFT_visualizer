@@ -1,7 +1,9 @@
-import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { useMediaQuery } from "react-responsive";
 import Logo from "../../images/logo";
 import "./navbar.scss";
+import { TiSocialLinkedin, TiSocialFacebook } from "react-icons/ti";
+import { FaTwitter, FaInstagram } from "react-icons/fa";
+import { AiOutlineYoutube } from "react-icons/ai";
 const Navbar = () => {
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
@@ -17,18 +19,29 @@ const Navbar = () => {
         </div>
       )}
       {isMobile && (
-        <div className="logo-div">
-          <Logo />
+        <div className="navbar-mobile">
+          <div className="logo-div-mobile">
+            <Logo />
+          </div>
+          <div className="social-container-mobile">
+            <div className="social-icon">
+              <FaTwitter color="white" />
+            </div>
+            <div className="social-icon">
+              <TiSocialLinkedin color="white" size="1.5rem" />
+            </div>
+            <div className="social-icon">
+              <FaInstagram color="white" size="1.5rem" />
+            </div>
+            <div className="social-icon">
+              <TiSocialFacebook color="white" size="1.5rem" />
+            </div>
+            <div className="social-icon">
+              <AiOutlineYoutube color="white" size="1.5rem" />
+            </div>
+          </div>
         </div>
       )}
-      <div
-        className="nav-menu"
-        style={{
-          cursor: "pointer",
-        }}
-      >
-        {/* <HiOutlineMenuAlt4 color="white" size="30" /> */}
-      </div>
     </div>
   );
 };
