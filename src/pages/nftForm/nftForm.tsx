@@ -1,6 +1,7 @@
 //Imports
 import { useState, useEffect } from "react";
 import { Formik } from "formik";
+import isEmpty from "lodash.isempty";
 
 //Components
 import Navbar from "../../components/navbar/Navbar";
@@ -41,6 +42,8 @@ const NftForm = (props: any) => {
           }}
         >
           {({ handleChange, handleSubmit, errors, values, setFieldValue }) => {
+            console.log("values :", values);
+            console.log("errors :", errors);
             return (
               <div className="form">
                 <div className="form-input">
@@ -82,7 +85,15 @@ const NftForm = (props: any) => {
                   </div>
                 </div>
                 <div className="btn-container">
-                  <button id="action-btn" onClick={() => handleSubmit()}>
+                  <button
+                    disabled={
+                      // disabled if both inputs are empty or if there are errors
+                      Object.values(values).some((v) => v === "") ||
+                      !isEmpty(errors)
+                    }
+                    id="action-btn"
+                    onClick={() => handleSubmit()}
+                  >
                     {t("nftForm.visualize")}
                   </button>
                 </div>

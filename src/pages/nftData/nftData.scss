@@ -1,14 +1,12 @@
-$backgroundImageMobile: "../../images/mainOpera.jpg";
+
 .loader-container {
   height: 100vh;
   top: 0;
   left: 0;
   display: grid;
   place-items: center;
+  background: black;
   
-}
-.mobile-container {
-  background-image: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(#{$backgroundImageMobile});
 }
 /* FIRST PAGE */
 #single-nft-container {
@@ -60,26 +58,7 @@ $backgroundImageMobile: "../../images/mainOpera.jpg";
   font-weight: bolder;
 }
 
-.go-to-details {
-  color: white;
-  position: absolute;
-  width: 15%;
-  height: 15%;
-  bottom: 10rem;
-  right: 0.5rem;
 
-  .arrow-container {
-    display: flex;
-    padding-left: 2rem;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .arrow {
-    position: absolute;
-    z-index: 1;
-  }
-}
 
 /* SECOND PAGE */
 
@@ -108,13 +87,7 @@ $backgroundImageMobile: "../../images/mainOpera.jpg";
     justify-content: center;
     height: 80%;
     align-self: center;
-    padding-top: 5em;
   }
-
-  /* .first-row {
-    border: 1px solid red;
-    height: 30%;
-  } */
 
   .nft-title-info {
     text-align: right;
@@ -139,7 +112,6 @@ $backgroundImageMobile: "../../images/mainOpera.jpg";
   }
 
   .second-row {
-    //border: 1px solid red;
     padding-top: 5%;
     height: 40%;
     display: flex;
@@ -151,31 +123,72 @@ $backgroundImageMobile: "../../images/mainOpera.jpg";
     bottom: 10em;
   }
 
+  
+
+  .navigation-arrows {
+    position: absolute;
+    bottom: 8%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .left-arrow-container {
+      cursor: pointer;
+      color: white;
+    }
+
+    
+    
+
+    .go-to-details {
+      color: white;
+      position: absolute;
+      font-size: 24px;
+      font-weight: bolder;
+      
+    
+      .arrow-container {
+        display: flex;
+        padding-left: 2rem;
+        position: relative;
+        cursor: pointer;
+      }
+    
+      .arrow {
+        position: absolute;
+        z-index: 1;
+      }
+    }
+  }
+  .go-back-text {
+    text-align: center;
+    height: 0px;
+    font-size: 24px;
+      font-weight: bolder;
+      
+  }
   .go-back {
     color: white;
     margin-top: 2rem;
-    //border: 1px solid red;
-
-
-    .go-back-text {
-      display: flex;
-      justify-content: flex-end;
-    }
-  }
-
-  .left-arrow-container {
     cursor: pointer;
   }
 
+  
+
   .links-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     color: white;
     justify-content: space-evenly;
     text-align: center;
     width: 100%;
-    //border: 1px solid white;
-
+    
+    .links-with-check {
+      position: absolute;
+      top: 3em;
+      left: 1em;
+    }
     .links-row {
       width: 70%;
       margin: 0 auto;
@@ -238,11 +251,19 @@ $backgroundImageMobile: "../../images/mainOpera.jpg";
   .mobile-artwork-container {
     width: 90%;
     margin: 0 auto;
+    position: relative;
     
     #mobile-artwork {
       width: 100%;
       height: 100%;
       object-fit: contain;
+  }
+
+  .check {
+    position: absolute;
+    top: -2em;
+    right: 0;
+    width: 35%;
   }
 
   }

@@ -80,5 +80,9 @@ $backgroundImage: "../../images/background.jpg";
     background-color: rgba(0, 0, 0, 0.4);
     max-width: 200px;
     width: 10rem;
+      
+    &:disabled {
+      opacity: 0.4;
+    }
   }
 }

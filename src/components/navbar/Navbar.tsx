@@ -1,5 +1,6 @@
 import { useMediaQuery } from "react-responsive";
 import Logo from "../../images/logo";
+import logoAesthetes from "../../images/logo_aesthetes.png";
 import "./navbar.scss";
 import { TiSocialLinkedin, TiSocialFacebook } from "react-icons/ti";
 import { FaTwitter, FaInstagram } from "react-icons/fa";
@@ -11,11 +12,13 @@ const Navbar = () => {
   return (
     <div className="navbar">
       {!isMobile && (
-        <div
-          className="nav-title"
-          style={{ fontSize: "20px", fontWeight: "bolder", cursor: "pointer" }}
-        >
-          AESTHETES
+        <div className="nav-title">
+          <img
+            alt="logo-aesthetes"
+            src={logoAesthetes}
+            width={150}
+            height={"auto"}
+          />
         </div>
       )}
       {isMobile && (

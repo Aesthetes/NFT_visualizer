@@ -4,5 +4,5 @@ export const searchInitialValues = { issuer: "", id: "" };
 
 export const searchValidationschema = Yup.object({
   issuer: Yup.string().required("need issuer"),
-  //id: Yup.string().length(12, "Id needs to be 12 char"),
+  id: Yup.string().length(11, "Id needs to be 12 char"),
 });

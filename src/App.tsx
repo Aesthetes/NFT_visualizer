@@ -22,6 +22,7 @@ function App() {
           path="/:network/nft-data/:issuer/:id"
           component={NftDataPage}
         />
+        <Route exact path="/:network/error" component={ErrorPage} />
       </Switch>
     </Router>
   );

@@ -15,6 +15,7 @@ import Lottie from "react-lottie-player";
 import loaderAnimationData from "../../lotties/loader.json";
 import { getNFTMetadata, getNFTImage } from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
+import GreenCheck from "../../images/greenCheck";
 SwiperCore.use([Navigation, Pagination]);
 
 type NftData = {
@@ -57,7 +58,7 @@ const NftDataPage = (props: any) => {
     query: "(max-width: 768px)",
   });
 
-  const { isFetching: loading } = useQuery(
+  const { isFetching: loading, error } = useQuery(
     "featchNFTData",
     async () => {
       setActiveQuery(false);
@@ -71,14 +72,16 @@ const NftDataPage = (props: any) => {
     }
   );
 
+  const currentNetwork = match.params.network;
   useEffect(() => {
+    if (error) {
+      console.log("ERRORE");
+      history.push(`/${currentNetwork}/error`);
+    }
     if (issuer && id) {
       setActiveQuery(true);
-    } else {
-      console.log("ERRORE");
-      history.push("/error");
     }
-  }, [id, issuer, history]);
+  }, [id, issuer, history, error, currentNetwork]);
 
   console.log("NFTDATA ==>", artwork);
 
@@ -103,12 +106,6 @@ const NftDataPage = (props: any) => {
           pagination={{ clickable: true }}
           spaceBetween={50}
           slidesPerView={1}
-          onSwiper={(e) => {
-            console.log("onSwiper");
-          }}
-          onSlideChange={(e) => {
-            console.log("onSlideChange");
-          }}
           navigation={{
             nextEl: ".arrow-container",
             prevEl: ".left-arrow-container",
@@ -130,9 +127,16 @@ const NftDataPage = (props: any) => {
                       <p>{nftData?.author}</p>
                     </div>
                   </div>
-                  <div className="go-to-details">
-                    <p>NFT Info</p>
+                  <div className="navigation-arrows">
+                    <div
+                      className="left-arrow-container"
+                      onClick={() => history.goBack()}
+                    >
+                      <p className="go-back-text">BACK</p>
+                      <LeftArrow />
+                    </div>
                     <div className="arrow-container">
+                      <p className="go-to-details">NFT Info</p>
                       <RightArrow />
                     </div>
                   </div>
@@ -146,7 +150,12 @@ const NftDataPage = (props: any) => {
                     <div className="third-row">
                       <div className="go-back">
                         <div className="left-arrow-container">
-                          <p className="go-back-text">BACK to Visualizer</p>
+                          <p
+                            className="go-back-text"
+                            style={{ fontSize: "14px" }}
+                          >
+                            BACK to Visualizer
+                          </p>
                           <LeftArrow />
                         </div>
                       </div>
@@ -182,6 +191,9 @@ const NftDataPage = (props: any) => {
                     <div className="second-row">
                       <div className="links-container">
                         <div className="links-row">
+                          <div className="links-with-check">
+                            <GreenCheck />
+                          </div>
                           <div className="links-btn-container">
                             <button className="link-btn">
                               DIGITAL ARTWORK
@@ -212,7 +224,10 @@ const NftDataPage = (props: any) => {
 
           {/* MOBILE */}
           {isMobile && (
-            <div className="mobile-container">
+            <div
+              className="mobile-container"
+              style={{ backgroundImage: `url(${artwork})` }}
+            >
               <div className="mobile-artwork-details">
                 <div className="name-container">
                   <p className="mobile-artwork-details-label">Name:</p>
@@ -224,6 +239,9 @@ const NftDataPage = (props: any) => {
                 </div>
               </div>
               <div className="mobile-artwork-container">
+                <div className="check">
+                  <GreenCheck />
+                </div>
                 <img id="mobile-artwork" alt="opera" src={artwork} />
               </div>
               <div className="bottom-drawer">
