@@ -177,14 +177,7 @@ const NftDataPage = (props: any) => {
                         </div>
                         <div className="description-container">
                           <p className="nft-description">Description:</p>
-                          <p>
-                            Lorem ipsum Author: Lorem Ipsum Description: Lorem
-                            ipsum dolor sit amet, consectetur adipisci elit, sed
-                            eiusmod tempor incidunt ut labore et dolore magna
-                            aliqua. Ut enim ad minim veniam, quis nostrum
-                            exercitationem ullam corporis suscipit laboriosam,
-                            nisi ut aliquid ex ea commodi consequatur.
-                          </p>
+                          <p>{nftData?.description}</p>
                         </div>
                       </div>
                     </div>
@@ -271,19 +264,23 @@ const NftDataPage = (props: any) => {
                         <h3>NFT Info</h3>
                         <p className="nft-description">Description:</p>
                       </div>
-                      <p>{nftData?.description}</p>
+                      <p className="description">{nftData?.description}</p>
                     </div>
                   </div>
-                  <button className="link-btn">DIGITAL ARTWORK</button>
-                  <div className="links-btn-container">
+                  <div className="links-row-1">
+                    <button className="link-btn">DIGITAL ARTWORK</button>
                     <button className="link-btn">NFT METADATA</button>
                   </div>
 
-                  <div className="link-label">
-                    <p>On-chain information</p>
+                  <div className="links-row-2">
+                    <div className="link-label">
+                      <p>On-chain information</p>
+                    </div>
+                    <div className="links-row-2-inner">
+                      <button className="link-btn">ISSUING DATA</button>
+                      <button className="link-btn">OWNER ACCOUNT</button>
+                    </div>
                   </div>
-                  <button className="link-btn">ISSUING DATA</button>
-                  <button className="link-btn">OWNER ACCOUNT</button>
                 </div>
               </Drawer>
             </div>

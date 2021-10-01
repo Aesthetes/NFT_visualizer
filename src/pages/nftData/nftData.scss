@@ -186,12 +186,6 @@
     width: 100%;
   }
 
-  .links-btn-container {
-    display: flex;
-    justify-content: space-evenly;
-    //border: 1px solid red;
-  }
-
   .onchain-info-container {
     height: 30%;
     display: flex;
@@ -266,7 +260,7 @@
 
 .MuiDrawer-paperAnchorBottom {
   background-color: black !important;
-  border-radius: 16px;
+  border-radius: 16px 16px 0 0;
 }
 
 .bottom-drawer {
@@ -298,9 +292,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  // height: 72vh;
-
-  height: 70%;
+  height: 72vh;
   width: 100%;
   margin: 0 auto;
   overflow-y: auto;
@@ -315,7 +307,13 @@
     margin-top: 1rem;
 
     .mobile-nft-info {
-      // margin: 0 1rem;
+      margin: 0 1rem;
+    }
+
+    .description {    
+      font-size: 1em;  
+      padding: 0 1em 1em 1em ;
+    
     }
 
     .drawer-headings {
@@ -327,10 +325,37 @@
       }
     }
   }
+
+  .links-row-1 {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .links-row-2-inner {
+    display: flex;
+    flex-direction: column;
+  }
+  
 }
 
 @media screen and (max-height: 580px) {
   .onchain-info-container {
     height: 40%;
+  }
+  .MuiDrawer-paperAnchorBottom {
+    border-radius: 0;
+  }
+
+  #drawer-container {
+    height: 100vh;
+
+    .links-row {
+      display: flex;
+    }
+    .description-container {
+      .description {      
+        font-size: 13px;
+      }
+    }
   }
 }
