@@ -42,8 +42,8 @@ const NftForm = (props: any) => {
           }}
         >
           {({ handleChange, handleSubmit, errors, values, setFieldValue }) => {
-            console.log("values :", values);
-            console.log("errors :", errors);
+            //console.log("values :", values);
+            //console.log("errors :", errors);
             return (
               <div className="form">
                 <div className="form-input">

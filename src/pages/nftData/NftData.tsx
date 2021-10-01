@@ -54,10 +54,6 @@ const NftDataPage = (props: any) => {
     content_cid: "",
   });
 
-  useEffect(() => {
-    console.log("QUI", nftData);
-  }, [nftData]);
-
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
@@ -79,7 +75,7 @@ const NftDataPage = (props: any) => {
   const currentNetwork = match.params.network;
   useEffect(() => {
     if (error) {
-      console.log("ERRORE");
+      //console.log("ERRORE");
       history.push(`/${currentNetwork}/error`);
     }
     if (issuer && id) {
@@ -87,7 +83,7 @@ const NftDataPage = (props: any) => {
     }
   }, [id, issuer, history, error, currentNetwork]);
 
-  console.log("NFTDATA ==>", artwork);
+  //console.log("NFTDATA ==>", artwork);
 
   return (
     <>
