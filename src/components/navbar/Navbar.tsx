@@ -12,12 +12,13 @@ const Navbar = () => {
   return (
     <div className="navbar">
       {!isMobile && (
-        <div className="nav-title">
+        <div className="nav-title" style={{ cursor: "pointer" }}>
           <img
             alt="logo-aesthetes"
             src={logoAesthetes}
             width={150}
             height={"auto"}
+            onClick={() => window.open("http://www.aesthetes.art")}
           />
         </div>
       )}

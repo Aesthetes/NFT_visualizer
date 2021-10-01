@@ -137,19 +137,18 @@
     position: absolute;
     font-size: 24px;
     font-weight: bolder;
+    cursor: pointer;
 
-    .arrow-container {
-      display: flex;
-      padding-left: 2rem;
-      position: relative;
-      cursor: pointer;
-    }
-
+   
+    
     .arrow {
       position: absolute;
       z-index: 1;
     }
   }
+}
+.arrow-container {
+  cursor: pointer;
 }
 .go-back-text {
   text-align: center;
