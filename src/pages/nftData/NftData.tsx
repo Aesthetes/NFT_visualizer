@@ -54,6 +54,10 @@ const NftDataPage = (props: any) => {
     content_cid: "",
   });
 
+  useEffect(() => {
+    console.log("QUI", nftData);
+  }, [nftData]);
+
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
@@ -184,9 +188,11 @@ const NftDataPage = (props: any) => {
                     <div className="second-row">
                       <div className="links-container">
                         <div className="links-row">
-                          <div className="links-with-check">
-                            <GreenCheck />
-                          </div>
+                          {nftData?.detected_minter_obj.certified && (
+                            <div className="links-with-check">
+                              <GreenCheck />
+                            </div>
+                          )}
                           <div className="links-btn-container">
                             <button className="link-btn">
                               DIGITAL ARTWORK
