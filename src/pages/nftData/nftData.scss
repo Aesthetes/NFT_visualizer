@@ -166,19 +166,23 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  color: white;
   justify-content: space-evenly;
+  color: white;
   text-align: center;
   width: 100%;
 
   .links-with-check {
     position: absolute;
-    top: 3em;
-    left: 1em;
+    left: -4em;
   }
   .links-row {
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
+  }
+
+  .links-btn-container {
+    display: flex;
+    justify-content: space-evenly;
   }
 
   .link-label {
@@ -192,6 +196,7 @@
     flex-direction: column;
   }
 }
+
 .link-btn {
   padding: 8px 12px;
   color: white;
@@ -355,6 +360,20 @@
       .description {      
         font-size: 13px;
       }
+    }
+  }
+}
+
+
+@media screen and (max-width:1000px) {
+  .links-container {
+    display: flex;
+    justify-content: space-evenly;
+    height: 15rem;
+
+    .links-with-check {
+      position: unset;
+      margin-right: -10rem;
     }
   }
 }
