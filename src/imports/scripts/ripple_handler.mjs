@@ -24,9 +24,9 @@ var ripple_api_mainnet_obj = {
 
 export const getCorrectRippleApiObj = function (network) {
   const _prefix = "getCorrectRippleApiObj: ";
-  if (network == "testnet") {
+  if (network === "testnet") {
     return ripple_api_testnet_obj;
-  } else if (network == "mainnet") {
+  } else if (network === "mainnet") {
     return ripple_api_mainnet_obj;
   } else {
     //printWithPrefix("error, network is " + network, _prefix);
@@ -161,7 +161,7 @@ export const logConnectionStatus = function (
 
 /*
 export const ctiIsSimple = function(_cti){
-    return (_cti >> 56n) == 0;
+    return (_cti >> 56n) === 0;
 }
 //*/
 export const ctiTxIndex = function (_cti) {
@@ -183,7 +183,7 @@ export const verifyAccountDomain = async function (
   _network
 ) {
   const _prefix = "verifyAccountDomain(): ";
-  if (isUndefinedOrNull(_domain) || _domain.length == 0) {
+  if (isUndefinedOrNull(_domain) || _domain.length === 0) {
     return false;
   }
 
@@ -207,19 +207,21 @@ export const verifyAccountDomain = async function (
       const extracted_accounts = extractAccountsFromTOML(response_text);
       if (
         isUndefinedOrNull(extracted_accounts) ||
-        extracted_accounts.length == 0
+        extracted_accounts.length === 0
       ) {
         return;
       }
 
       for (let i = 0; i < extracted_accounts.length; i++) {
-        if (extracted_accounts[i].address == _address) {
+        if (extracted_accounts[i].address === _address) {
           if (!isUndefinedOrNull(extracted_accounts[i].network)) {
             //if the network attribute is defined
             let extracted_account_address = extracted_accounts[i].network;
             if (
-              (_network == "mainnet" && extracted_account_address == "main") ||
-              (_network == "testnet" && extracted_account_address == "testnet")
+              (_network === "mainnet" &&
+                extracted_account_address === "main") ||
+              (_network === "testnet" &&
+                extracted_account_address === "testnet")
             ) {
               //if the network is the same we are using
               is_verified = true;

@@ -64,7 +64,7 @@ export const printErrorWithPrefix = function (error, _prefix) {
 };
 
 export const isUndefinedOrNull = function (_value) {
-  return _value == undefined || _value == null;
+  return _value === undefined || _value === null;
 };
 
 export const bytesToHex = function (_bytes) {
@@ -111,11 +111,11 @@ export const convertToHttp = function (url_to_convert) {
     return null;
   }
   const protocol = splitted_url[0];
-  if (protocol == "http" || protocol == "https") {
+  if (protocol === "http" || protocol === "https") {
     //if the protocol is already http or https then it's okay
     return url_to_convert;
   }
-  if (protocol == "ipfs") {
+  if (protocol === "ipfs") {
     //if the protocol is ipfs then it has to be redirected through a gateway
     const ipfs_gateway_url = "https://ipfs.io/ipfs/";
     return ipfs_gateway_url + splitted_url[1];
@@ -164,7 +164,7 @@ export const extractCIDFromHashUrl = function (_domain) {
     return null;
   }
   const _domain_splitted = _domain.split(":");
-  if (_domain_splitted.length != 2) {
+  if (_domain_splitted.length !== 2) {
     return null;
   }
   return _domain_splitted[1];

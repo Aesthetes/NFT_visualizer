@@ -15,10 +15,9 @@ const NftForm = (props: any) => {
   const { match, history } = props;
   const t = i18next.t.bind(i18next);
 
-  const [network, setNetwork] = useState("testnet");
+  const [network, setNetwork] = useState(match.params.network);
 
   useEffect(() => {
-    console.log("MATCH ==>", match);
     setNetwork(match.params.network);
   }, [match]);
 
