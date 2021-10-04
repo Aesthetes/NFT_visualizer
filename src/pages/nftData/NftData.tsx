@@ -84,7 +84,7 @@ const NftDataPage = (props: any) => {
     }
   }, [id, issuer, history, error, currentNetwork]);
 
-  //console.log("NFTDATA ==>", artwork);
+  console.log("NFTDATA ==>", nftData);
 
   return (
     <>
@@ -191,10 +191,18 @@ const NftDataPage = (props: any) => {
                             </div>
                           )}
                           <div className="links-btn-container">
-                            <button className="link-btn">
+                            <a
+                              className="link-btn"
+                              href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
+                            >
                               DIGITAL ARTWORK
-                            </button>
-                            <button className="link-btn">NFT METADATA</button>
+                            </a>
+                            <a
+                              className="link-btn"
+                              href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
+                            >
+                              NFT METADATA
+                            </a>
                           </div>
                         </div>
                         <div className="onchain-info-container">
@@ -203,10 +211,12 @@ const NftDataPage = (props: any) => {
                           </div>
                           <div className="links-row">
                             <div className="links-btn-container">
-                              <button className="link-btn">ISSUING DATA</button>
-                              <button className="link-btn">
+                              <a className="link-btn" href={``}>
+                                ISSUING DATA
+                              </a>
+                              <a className="link-btn" href={``}>
                                 OWNER ACCOUNT
-                              </button>
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -277,8 +287,18 @@ const NftDataPage = (props: any) => {
                     </div>
                   </div>
                   <div className="links-row-1">
-                    <button className="link-btn">DIGITAL ARTWORK</button>
-                    <button className="link-btn">NFT METADATA</button>
+                    <a
+                      className="link-btn"
+                      href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
+                    >
+                      DIGITAL ARTWORK
+                    </a>
+                    <a
+                      className="link-btn"
+                      href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
+                    >
+                      NFT METADATA
+                    </a>
                   </div>
 
                   <div className="links-row-2">
@@ -286,8 +306,12 @@ const NftDataPage = (props: any) => {
                       <p>On-chain information</p>
                     </div>
                     <div className="links-row-2-inner">
-                      <button className="link-btn">ISSUING DATA</button>
-                      <button className="link-btn">OWNER ACCOUNT</button>
+                      <a className="link-btn" href={``}>
+                        ISSUING DATA
+                      </a>
+                      <a className="link-btn" href={``}>
+                        OWNER ACCOUNT
+                      </a>
                     </div>
                   </div>
                 </div>
