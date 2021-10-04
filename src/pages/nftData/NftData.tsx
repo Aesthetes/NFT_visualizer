@@ -16,6 +16,7 @@ import loaderAnimationData from "../../lotties/loader.json";
 import { getNFTMetadata, getNFTImage } from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
 import GreenCheck from "../../images/greenCheck";
+import BackArrow from "../../images/backArrow";
 SwiperCore.use([Navigation, Pagination]);
 
 type NftData = {
@@ -238,6 +239,12 @@ const NftDataPage = (props: any) => {
                   <GreenCheck />
                 </div>
                 <img id="mobile-artwork" alt="opera" src={artwork} />
+              </div>
+              <div
+                className="back-arrow-container"
+                onClick={() => history.push("/")}
+              >
+                <BackArrow />
               </div>
               <div className="bottom-drawer">
                 <div

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Formik } from "formik";
 import isEmpty from "lodash.isempty";
+import { useMediaQuery } from "react-responsive";
 
 //Components
 import Navbar from "../../components/navbar/Navbar";
@@ -10,11 +11,13 @@ import SideMenu from "../../components/sideMenu/SideMenu";
 import "./nftForm.scss";
 import i18next from "../../imports/i18n/i18n";
 import { searchInitialValues, searchValidationschema } from "./FormType";
-
 const NftForm = (props: any) => {
   const { match, history } = props;
   const t = i18next.t.bind(i18next);
 
+  const isMobile = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
   const [network, setNetwork] = useState(match.params.network);
 
   useEffect(() => {
@@ -24,7 +27,7 @@ const NftForm = (props: any) => {
   return (
     <div id="form-wrapper">
       <Navbar />
-      <SideMenu sideMenuVisible />
+      <SideMenu sideMenuVisible={!isMobile} />
       <div className="form-container">
         <h1>Visualize a NFT</h1>
         <p>
