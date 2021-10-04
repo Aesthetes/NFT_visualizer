@@ -74,6 +74,11 @@ const NftDataPage = (props: any) => {
   );
 
   const currentNetwork = match.params.network;
+  const currentNetworkForUrl =
+    currentNetwork === "testnet"
+      ? currentNetwork.substring(0, 4)
+      : currentNetwork;
+
   useEffect(() => {
     if (error) {
       //console.log("ERRORE");
@@ -213,10 +218,16 @@ const NftDataPage = (props: any) => {
                           </div>
                           <div className="links-row">
                             <div className="links-btn-container">
-                              <a className="link-btn" href={``}>
+                              <a
+                                className="link-btn"
+                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/`}
+                              >
                                 ISSUING DATA
                               </a>
-                              <a className="link-btn" href={``}>
+                              <a
+                                className="link-btn"
+                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/`}
+                              >
                                 OWNER ACCOUNT
                               </a>
                             </div>
@@ -308,10 +319,16 @@ const NftDataPage = (props: any) => {
                       <p>On-chain information</p>
                     </div>
                     <div className="links-row-2-inner">
-                      <a className="link-btn" href={``}>
+                      <a
+                        className="link-btn"
+                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/`}
+                      >
                         ISSUING DATA
                       </a>
-                      <a className="link-btn" href={``}>
+                      <a
+                        className="link-btn"
+                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/`}
+                      >
                         OWNER ACCOUNT
                       </a>
                     </div>

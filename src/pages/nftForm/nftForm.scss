@@ -32,6 +32,13 @@ $backgroundImage: "../../images/background.jpg";
       padding: 5rem 6rem;
       width: auto;
     }
+    .radio-btn-container {
+      display: flex;
+      height: 2rem;
+      justify-content: space-between !important;
+      align-items: center;
+      width: 100% !important;
+    }
   }
 
   .form {
@@ -63,8 +70,9 @@ $backgroundImage: "../../images/background.jpg";
   .radio-btn-container {
     display: flex;
     justify-content: space-evenly;
-    width: 40%;
+    width: 80%;
     align-self: center;
+    align-items: center;
 
     .radio-container {
       display: flex;
