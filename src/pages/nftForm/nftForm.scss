@@ -73,8 +73,8 @@ $backgroundImage: "../../images/background.jpg";
   }
 
   #action-btn {
-    border-radius: 12px;
-    border: 2px solid white;
+    border-radius: 20px;
+    border: 4px solid white;
     color: white;
     font-weight: bolder;
     padding: 8px 12px;
@@ -85,5 +85,21 @@ $backgroundImage: "../../images/background.jpg";
     &:disabled {
       opacity: 0.4;
     }
+  }
+}
+
+/* CUSTOMIZING RADIO BUTTONS */
+
+.css-1rggdzb {
+  background: #C4C4C4 !important;
+  border-color: #C4C4C4 !important;
+  color: #C4C4C4 !important;
+  box-shadow: none !important;
+
+  &[data-checked] {
+    background: black !important;
+  border-color: #C4C4C4 !important;
+  color: black !important;
+  box-shadow: none !important;
   }
 }

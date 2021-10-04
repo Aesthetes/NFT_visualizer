@@ -131,7 +131,7 @@ const NftDataPage = (props: any) => {
                   <div className="navigation-arrows">
                     <div
                       className="left-arrow-container"
-                      onClick={() => history.goBack()}
+                      onClick={() => history.push("/")}
                     >
                       <p className="go-back-text">BACK</p>
                       <LeftArrow />
@@ -178,7 +178,9 @@ const NftDataPage = (props: any) => {
                         </div>
                         <div className="description-container">
                           <p className="nft-description">Description:</p>
-                          <p>{nftData?.description}</p>
+                          <p className="nft-description-text">
+                            {nftData?.description}
+                          </p>
                         </div>
                       </div>
                     </div>

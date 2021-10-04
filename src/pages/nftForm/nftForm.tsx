@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import { Formik } from "formik";
 import isEmpty from "lodash.isempty";
 import { useMediaQuery } from "react-responsive";
-
 //Components
 import Navbar from "../../components/navbar/Navbar";
 import SideMenu from "../../components/sideMenu/SideMenu";
-
 import "./nftForm.scss";
 import i18next from "../../imports/i18n/i18n";
 import { searchInitialValues, searchValidationschema } from "./FormType";
+import { RadioGroup, Radio } from "@chakra-ui/react";
 const NftForm = (props: any) => {
   const { match, history } = props;
   const t = i18next.t.bind(i18next);
@@ -31,7 +30,7 @@ const NftForm = (props: any) => {
       <div className="form-container">
         <h1>Visualize a NFT</h1>
         <p>
-          Visualize all NFTs minted according to the Aesthetes's standards.
+          Visualize all NFTs minted according to the Aesthetes' standards.
           <br />
           <br />
           Join the XRPL NFTs revolution
@@ -66,26 +65,29 @@ const NftForm = (props: any) => {
                     onChange={(e) => setFieldValue("id", e.target.value)}
                   />
                 </div>
-                <div className="radio-btn-container">
+                <RadioGroup
+                  defaultValue="testnet"
+                  className="radio-btn-container"
+                >
                   <div className="radio-container">
-                    <input
-                      type="radio"
-                      name="testnet"
+                    <Radio
+                      value="testnet"
                       checked={network === "testnet"}
                       onChange={() => history.push("/testnet")}
-                    />
-                    <p>Testnet</p>
+                    >
+                      Testnet
+                    </Radio>
                   </div>
                   <div className="radio-container">
-                    <input
-                      type="radio"
-                      name="mainnet"
+                    <Radio
+                      value="mainnet"
                       checked={network === "mainnet"}
                       onChange={() => history.push("/mainnet")}
-                    />
-                    <p>Mainnet</p>
+                    >
+                      Mainnet
+                    </Radio>
                   </div>
-                </div>
+                </RadioGroup>
                 <div className="btn-container">
                   <button
                     disabled={
@@ -96,7 +98,8 @@ const NftForm = (props: any) => {
                     id="action-btn"
                     onClick={() => handleSubmit()}
                   >
-                    {t("nftForm.visualize")}
+                    {/* {t("nftForm.visualize")} */}
+                    Visualize
                   </button>
                 </div>
               </div>
