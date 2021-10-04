@@ -6,6 +6,7 @@ $backgroundImage: "../../images/background.jpg";
   background-image: url(#{$backgroundImage});
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 
   .form-container {
     background-color: rgba(0, 0, 0, 0.4);

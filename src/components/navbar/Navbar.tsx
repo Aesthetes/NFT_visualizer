@@ -24,23 +24,47 @@ const Navbar = () => {
       )}
       {isMobile && (
         <div className="navbar-mobile">
-          <div className="logo-div-mobile">
+          <div
+            className="logo-div-mobile"
+            onClick={() => window.open("http://www.aesthetes.art")}
+          >
             <Logo />
           </div>
           <div className="social-container-mobile">
-            <div className="social-icon">
+            <div
+              className="social-icon"
+              onClick={() => window.open("https://twitter.com/aesthetes_art")}
+            >
               <FaTwitter color="white" />
             </div>
-            <div className="social-icon">
+            <div
+              className="social-icon"
+              onClick={() =>
+                window.open("https://www.linkedin.com/company/71714406/admin/")
+              }
+            >
               <TiSocialLinkedin color="white" size="1.5rem" />
             </div>
-            <div className="social-icon">
+            <div
+              className="social-icon"
+              onClick={() =>
+                window.open("https://www.instagram.com/aesthetes_fineart/")
+              }
+            >
               <FaInstagram color="white" size="1.5rem" />
             </div>
-            <div className="social-icon">
+            <div
+              className="social-icon"
+              onClick={() =>
+                window.open("https://www.facebook.com/aesthetes.fineart/")
+              }
+            >
               <TiSocialFacebook color="white" size="1.5rem" />
             </div>
-            <div className="social-icon">
+            <div
+              className="social-icon"
+              onClick={() => window.open("https://www.youtube.com/c/Aesthetes")}
+            >
               <AiOutlineYoutube color="white" size="1.5rem" />
             </div>
           </div>
