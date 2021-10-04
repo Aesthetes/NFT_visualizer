@@ -13,6 +13,7 @@
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "big-integer": "^1.6.49",
+    "firebase": "^9.1.1",
     "formik": "^2.2.9",
     "lodash.isempty": "^4.4.0",
     "node-sass": "^6.0.1",
