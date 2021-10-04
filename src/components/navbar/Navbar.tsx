@@ -24,7 +24,10 @@ const Navbar = () => {
       )}
       {isMobile && (
         <div className="navbar-mobile">
-          <div className="logo-div-mobile">
+          <div
+            className="logo-div-mobile"
+            onClick={() => window.open("http://www.aesthetes.art")}
+          >
             <Logo />
           </div>
           <div className="social-container-mobile">
