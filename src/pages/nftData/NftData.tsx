@@ -55,9 +55,7 @@ const NftDataPage = (props: any) => {
     content_cid: "",
   });
 
-  useEffect(() => {
-    console.log("qweqwe", isDrawerOpen);
-  }, [isDrawerOpen]);
+  useEffect(() => {}, [isDrawerOpen]);
 
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
@@ -90,8 +88,6 @@ const NftDataPage = (props: any) => {
       setActiveQuery(true);
     }
   }, [id, issuer, history, error, currentNetwork]);
-
-  console.log("NFTDATA ==>", nftData);
 
   return (
     <>
