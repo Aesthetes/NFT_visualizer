@@ -40,6 +40,7 @@ const NftDataPage = (props: any) => {
   const [issuer, setIssuer] = useState(match.params.issuer);
   const [id, setId] = useState(match.params.id);
   const [activeQuery, setActiveQuery] = useState(false);
+  const [error, setError] = useState(false);
   const [artwork, setArtwork] = useState<any>("");
   const [nftData, setNftData] = useState<any>({
     identifier: "",
@@ -61,14 +62,18 @@ const NftDataPage = (props: any) => {
     query: "(max-width: 768px)",
   });
 
-  const { isFetching: loading, error } = useQuery(
+  const { isFetching: loading } = useQuery(
     "featchNFTData",
     async () => {
-      setActiveQuery(false);
-      let data = await getNFTMetadata(issuer, id, match.params.network);
+      try {
+        setActiveQuery(false);
+        let data = await getNFTMetadata(issuer, id, match.params.network);
 
-      setNftData(data);
-      setArtwork(await getNFTImage(data.content_cid));
+        setNftData(data);
+        setArtwork(await getNFTImage(data.content_cid));
+      } catch (e) {
+        setError(true);
+      }
     },
     {
       enabled: activeQuery,
