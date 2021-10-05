@@ -1,25 +1,30 @@
+//Imports
 import { useState, useEffect } from "react";
-import Navbar from "../../components/navbar/Navbar";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import RightArrow from "../../images/rightArrow";
-import LeftArrow from "../../images/leftArrow";
-import { FaChevronUp } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { useMediaQuery } from "react-responsive";
-import "./nftData.scss";
 import { useQuery } from "react-query";
 import Lottie from "react-lottie-player";
 import loaderAnimationData from "../../lotties/loader.json";
 import { getNFTMetadata, getNFTImage } from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
-import GreenCheck from "../../images/greenCheck";
+//Components
+import Navbar from "../../components/navbar/Navbar";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+//Images and icons
+import { FaChevronUp } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 import BackArrow from "../../images/backArrow";
+import GreenCheck from "../../images/greenCheck";
+import OnlyArrowBack from "../../images/onlyArrowBack";
+import OnlyArrowForward from "../../images/onlyArrowForward";
+//Style
+import "./nftData.scss";
+
 SwiperCore.use([Navigation, Pagination]);
 
-type NftData = {
+/* type NftData = {
   identifier: string;
   actual_nft_owner: string;
   detected_hot_wallet_obj: string;
@@ -31,14 +36,14 @@ type NftData = {
   description: string;
   author: string;
   content_cid: string;
-};
+}; */
 
 const NftDataPage = (props: any) => {
   const { match } = props;
   const history = useHistory();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [issuer, setIssuer] = useState(match.params.issuer);
-  const [id, setId] = useState(match.params.id);
+  const [issuer] = useState(match.params.issuer);
+  const [id] = useState(match.params.id);
   const [activeQuery, setActiveQuery] = useState(false);
   const [artwork, setArtwork] = useState<any>("");
   const [nftData, setNftData] = useState<any>({
@@ -54,10 +59,6 @@ const NftDataPage = (props: any) => {
     author: "",
     content_cid: "",
   });
-
-  useEffect(() => {
-    console.log("qweqwe", isDrawerOpen);
-  }, [isDrawerOpen]);
 
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
@@ -117,8 +118,8 @@ const NftDataPage = (props: any) => {
           spaceBetween={0}
           slidesPerView={1}
           navigation={{
-            nextEl: ".arrow-container",
-            prevEl: ".left-arrow-container",
+            nextEl: ".back-arrow-container-desktop",
+            prevEl: ".back-arrow-container-desktop-prev",
           }}
         >
           {/* DESKTOP */}
@@ -142,15 +143,15 @@ const NftDataPage = (props: any) => {
                   </div>
                   <div className="navigation-arrows">
                     <div
-                      className="left-arrow-container"
+                      className="back-arrow-container-desktop"
                       onClick={() => history.push("/")}
                     >
-                      <p className="go-back-text">BACK</p>
-                      <LeftArrow />
+                      <p className="go-back-text">Back</p>
+                      <OnlyArrowBack />
                     </div>
-                    <div className="arrow-container">
+                    <div className="back-arrow-container-desktop">
                       <p className="go-to-details">NFT Info</p>
-                      <RightArrow />
+                      <OnlyArrowForward />
                     </div>
                   </div>
                 </div>
@@ -162,9 +163,14 @@ const NftDataPage = (props: any) => {
                     <img id="artwork-small" alt="opera" src={artwork} />
                     <div className="third-row">
                       <div className="go-back">
-                        <div className="left-arrow-container">
-                          <p className="go-back-text">BACK to Visualizer</p>
-                          <LeftArrow />
+                        <div className="back-arrow-container-desktop-prev">
+                          <p
+                            className="go-back-text"
+                            style={{ fontSize: "16px" }}
+                          >
+                            BACK to Visualizer
+                          </p>
+                          <OnlyArrowBack />
                         </div>
                       </div>
                     </div>
@@ -208,6 +214,7 @@ const NftDataPage = (props: any) => {
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
                               target={"_blank"}
+                              rel="noreferrer"
                             >
                               DIGITAL ARTWORK
                             </a>
@@ -215,6 +222,7 @@ const NftDataPage = (props: any) => {
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
                               target={"_blank"}
+                              rel="noreferrer"
                             >
                               NFT METADATA
                             </a>
@@ -230,6 +238,7 @@ const NftDataPage = (props: any) => {
                                 className="link-btn"
                                 href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.metadata_tx_hash}`}
                                 target={"_blank"}
+                                rel="noreferrer"
                               >
                                 ISSUING DATA
                               </a>
@@ -237,6 +246,7 @@ const NftDataPage = (props: any) => {
                                 className="link-btn"
                                 href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
                                 target={"_blank"}
+                                rel="noreferrer"
                               >
                                 OWNER ACCOUNT
                               </a>
@@ -253,10 +263,7 @@ const NftDataPage = (props: any) => {
 
           {/* MOBILE */}
           {isMobile && (
-            <div
-              className="mobile-container"
-              // style={{ backgroundImage: `url(${artwork})` }}
-            >
+            <div className="mobile-container">
               <div
                 className="mobile-container"
                 style={{
@@ -342,6 +349,7 @@ const NftDataPage = (props: any) => {
                       className="link-btn"
                       href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
                       target={"_blank"}
+                      rel="noreferrer"
                     >
                       DIGITAL ARTWORK
                     </a>
@@ -349,6 +357,7 @@ const NftDataPage = (props: any) => {
                       className="link-btn"
                       href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
                       target={"_blank"}
+                      rel="noreferrer"
                     >
                       NFT METADATA
                     </a>
@@ -363,6 +372,7 @@ const NftDataPage = (props: any) => {
                         className="link-btn"
                         href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.metadata_tx_hash}`}
                         target={"_blank"}
+                        rel="noreferrer"
                       >
                         ISSUING DATA
                       </a>
@@ -370,6 +380,7 @@ const NftDataPage = (props: any) => {
                         className="link-btn"
                         href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
                         target={"_blank"}
+                        rel="noreferrer"
                       >
                         OWNER ACCOUNT
                       </a>

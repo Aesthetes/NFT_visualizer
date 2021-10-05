@@ -3,21 +3,27 @@ import { useState, useEffect } from "react";
 import { Formik } from "formik";
 import isEmpty from "lodash.isempty";
 import { useMediaQuery } from "react-responsive";
+//import i18next from "../../imports/i18n/i18n";
+import { searchInitialValues, searchValidationschema } from "./FormType";
 //Components
 import Navbar from "../../components/navbar/Navbar";
 import SideMenu from "../../components/sideMenu/SideMenu";
-import "./nftForm.scss";
-import i18next from "../../imports/i18n/i18n";
-import { searchInitialValues, searchValidationschema } from "./FormType";
 import { RadioGroup, Radio } from "@chakra-ui/react";
+//Style
+import "./nftForm.scss";
+
 const NftForm = (props: any) => {
   const { match, history } = props;
-  const t = i18next.t.bind(i18next);
+  //const t = i18next.t.bind(i18next);
 
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
   const [network, setNetwork] = useState(match.params.network);
+
+  useEffect(() => {
+    setNetwork(match.params.network);
+  }, [match]);
 
   useEffect(() => {
     setNetwork(match.params.network);
@@ -48,8 +54,8 @@ const NftForm = (props: any) => {
           }}
         >
           {({ handleChange, handleSubmit, errors, values, setFieldValue }) => {
-            //console.log("values :", values);
-            //console.log("errors :", errors);
+            console.log("values :", values);
+            console.log("errors :", errors);
             return (
               <div className="form">
                 <div className="form-input">
