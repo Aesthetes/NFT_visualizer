@@ -55,6 +55,10 @@ const NftDataPage = (props: any) => {
     content_cid: "",
   });
 
+  useEffect(() => {
+    console.log("qweqwe", isDrawerOpen);
+  }, [isDrawerOpen]);
+
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
@@ -154,12 +158,7 @@ const NftDataPage = (props: any) => {
                     <div className="third-row">
                       <div className="go-back">
                         <div className="left-arrow-container">
-                          <p
-                            className="go-back-text"
-                            style={{ fontSize: "14px" }}
-                          >
-                            BACK to Visualizer
-                          </p>
+                          <p className="go-back-text">BACK to Visualizer</p>
                           <LeftArrow />
                         </div>
                       </div>
@@ -284,11 +283,11 @@ const NftDataPage = (props: any) => {
                 <BackArrow />
               </div>
               <div className="bottom-drawer">
-                <div
-                  className="chevron-container"
-                  onClick={() => setIsDrawerOpen(true)}
-                >
-                  <FaChevronUp size="40" />
+                <div className="chevron-container">
+                  <FaChevronUp
+                    size="40"
+                    onClick={() => setIsDrawerOpen(true)}
+                  />
                 </div>
                 NFT Info
               </div>
@@ -298,7 +297,8 @@ const NftDataPage = (props: any) => {
                 open={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}
                 onOpen={() => setIsDrawerOpen(true)}
-                swipeAreaWidth={100}
+                //onClick={() => setIsDrawerOpen(true)}
+                swipeAreaWidth={70}
                 disableSwipeToOpen={false}
               >
                 <div id="drawer-container">
