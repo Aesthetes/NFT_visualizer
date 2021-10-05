@@ -111,8 +111,10 @@ const NftDataPage = (props: any) => {
       <div id="single-nft-container">
         <Navbar />
         <Swiper
+          centeredSlides
+          centeredSlidesBounds
           pagination={{ clickable: true }}
-          spaceBetween={50}
+          spaceBetween={0}
           slidesPerView={1}
           navigation={{
             nextEl: ".arrow-container",
@@ -122,11 +124,14 @@ const NftDataPage = (props: any) => {
           {/* DESKTOP */}
           {!isMobile && (
             <>
-              <SwiperSlide>
+              <SwiperSlide style={{ width: "100%" }}>
                 <div id="artwork-container">
                   <img id="artwork" alt="opera" src={artwork} />
                   <div className="artwork-details">
-                    <div className="name-container">
+                    <div
+                      className="name-container"
+                      style={{ paddingBottom: "1rem" }}
+                    >
                       <p className="artwork-details-label">Name:</p>
                       <p>{nftData?.name}</p>
                     </div>
@@ -170,13 +175,22 @@ const NftDataPage = (props: any) => {
                     </div>
                     <div className="first-row">
                       <div className="nft-info">
-                        <div className="name-container">
-                          <p className="artwork-details-label">Name:</p>
-                          <p>{nftData?.name}</p>
-                        </div>
-                        <div className="author-container">
-                          <p className="artwork-details-label">Author:</p>
-                          <p>{nftData?.author}</p>
+                        <div className="nft-info-container">
+                          <div className="author-name">
+                            <div className="name-container">
+                              <p className="artwork-details-label">Name:</p>
+                              <p>{nftData?.name}</p>
+                            </div>
+                            <div className="author-container">
+                              <p className="artwork-details-label">Author:</p>
+                              <p>{nftData?.author}</p>
+                            </div>
+                          </div>
+                          {nftData?.detected_minter_obj.certified && (
+                            <div className="links-with-check">
+                              <GreenCheck />
+                            </div>
+                          )}
                         </div>
                         <div className="description-container">
                           <p className="nft-description">Description:</p>
@@ -189,16 +203,12 @@ const NftDataPage = (props: any) => {
                     <div className="second-row">
                       <div className="links-container">
                         <div className="links-row">
-                          {nftData?.detected_minter_obj.certified && (
-                            <div className="links-with-check">
-                              <GreenCheck />
-                            </div>
-                          )}
                           <div className="links-btn-container">
                             <a
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
                               target={"_blank"}
+                              style={{ marginRight: 0 }}
                             >
                               DIGITAL ARTWORK
                             </a>
@@ -206,6 +216,7 @@ const NftDataPage = (props: any) => {
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
                               target={"_blank"}
+                              style={{ marginRight: 0 }}
                             >
                               NFT METADATA
                             </a>
@@ -228,6 +239,7 @@ const NftDataPage = (props: any) => {
                                 className="link-btn"
                                 href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
                                 target={"_blank"}
+                                style={{ marginRight: 0 }}
                               >
                                 OWNER ACCOUNT
                               </a>
@@ -261,19 +273,23 @@ const NftDataPage = (props: any) => {
               />
 
               <div className="mobile-artwork-details">
-                <div className="name-container">
-                  <p className="mobile-artwork-details-label">Name:</p>
-                  <p>{nftData?.name}</p>
-                </div>
-                <div className="author-container">
-                  <p className="mobile-artwork-details-label">Author:</p>
-                  <p>{nftData?.author}</p>
+                <div className="nft-info-container">
+                  <div className="author-name" style={{ paddingLeft: "1rem" }}>
+                    <div className="name-container">
+                      <p className="mobile-artwork-details-label">Name:</p>
+                      <p>{nftData?.name}</p>
+                    </div>
+                    <div className="author-container">
+                      <p className="mobile-artwork-details-label">Author:</p>
+                      <p>{nftData?.author}</p>
+                    </div>
+                  </div>
+                  <div className="check">
+                    <GreenCheck />
+                  </div>
                 </div>
               </div>
               <div className="mobile-artwork-container">
-                <div className="check">
-                  <GreenCheck />
-                </div>
                 <img id="mobile-artwork" alt="opera" src={artwork} />
               </div>
               <div
@@ -297,8 +313,7 @@ const NftDataPage = (props: any) => {
                 open={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}
                 onOpen={() => setIsDrawerOpen(true)}
-                //onClick={() => setIsDrawerOpen(true)}
-                swipeAreaWidth={70}
+                swipeAreaWidth={60}
                 disableSwipeToOpen={false}
               >
                 <div id="drawer-container">
