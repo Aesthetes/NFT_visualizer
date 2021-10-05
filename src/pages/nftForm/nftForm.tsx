@@ -24,7 +24,12 @@ const NftForm = (props: any) => {
   }, [match]);
 
   return (
-    <div id="form-wrapper">
+    <div
+      id="form-wrapper"
+      // style={{
+      //   backgroundImage: `url("${"https://firebasestorage.googleapis.com/v0/b/xrplnft.appspot.com/o/background.jpg?alt=media&token=298ccbd3-482c-4052-90c2-aaeeaf371b6c"}"`,
+      // }}
+    >
       <Navbar />
       <SideMenu sideMenuVisible={!isMobile} />
       <div className="form-container">

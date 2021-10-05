@@ -75,9 +75,7 @@ const NftDataPage = (props: any) => {
 
   const currentNetwork = match.params.network;
   const currentNetworkForUrl =
-    currentNetwork === "testnet"
-      ? currentNetwork.substring(0, 4)
-      : currentNetwork;
+    currentNetwork === "testnet" ? currentNetwork.substring(0, 4) : "";
 
   useEffect(() => {
     if (error) {
@@ -201,12 +199,14 @@ const NftDataPage = (props: any) => {
                             <a
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
+                              target={"_blank"}
                             >
                               DIGITAL ARTWORK
                             </a>
                             <a
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
+                              target={"_blank"}
                             >
                               NFT METADATA
                             </a>
@@ -220,13 +220,15 @@ const NftDataPage = (props: any) => {
                             <div className="links-btn-container">
                               <a
                                 className="link-btn"
-                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/`}
+                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.metadata_tx_hash}`}
+                                target={"_blank"}
                               >
                                 ISSUING DATA
                               </a>
                               <a
                                 className="link-btn"
-                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/`}
+                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
+                                target={"_blank"}
                               >
                                 OWNER ACCOUNT
                               </a>
@@ -245,8 +247,20 @@ const NftDataPage = (props: any) => {
           {isMobile && (
             <div
               className="mobile-container"
-              style={{ backgroundImage: `url(${artwork})` }}
+              // style={{ backgroundImage: `url(${artwork})` }}
             >
+              <div
+                className="mobile-container"
+                style={{
+                  backgroundImage: `url(${artwork})`,
+                  zIndex: 0,
+                  opacity: 0.8,
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                }}
+              />
+
               <div className="mobile-artwork-details">
                 <div className="name-container">
                   <p className="mobile-artwork-details-label">Name:</p>
@@ -307,12 +321,14 @@ const NftDataPage = (props: any) => {
                     <a
                       className="link-btn"
                       href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
+                      target={"_blank"}
                     >
                       DIGITAL ARTWORK
                     </a>
                     <a
                       className="link-btn"
                       href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
+                      target={"_blank"}
                     >
                       NFT METADATA
                     </a>
@@ -325,13 +341,15 @@ const NftDataPage = (props: any) => {
                     <div className="links-row-2-inner">
                       <a
                         className="link-btn"
-                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/`}
+                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.metadata_tx_hash}`}
+                        target={"_blank"}
                       >
                         ISSUING DATA
                       </a>
                       <a
                         className="link-btn"
-                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/`}
+                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
+                        target={"_blank"}
                       >
                         OWNER ACCOUNT
                       </a>
