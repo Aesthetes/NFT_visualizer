@@ -108,7 +108,7 @@ const NftDataPage = (props: any) => {
           />
         </div>
       )}
-      <div id="single-nft-container">
+      <div id={`single-nft-container`} style={isMobile ? {} : { width: "90%" }}>
         <Navbar />
         <Swiper
           centeredSlides
@@ -208,7 +208,6 @@ const NftDataPage = (props: any) => {
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
                               target={"_blank"}
-                              style={{ marginRight: 0 }}
                             >
                               DIGITAL ARTWORK
                             </a>
@@ -216,7 +215,6 @@ const NftDataPage = (props: any) => {
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
                               target={"_blank"}
-                              style={{ marginRight: 0 }}
                             >
                               NFT METADATA
                             </a>
@@ -239,7 +237,6 @@ const NftDataPage = (props: any) => {
                                 className="link-btn"
                                 href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
                                 target={"_blank"}
-                                style={{ marginRight: 0 }}
                               >
                                 OWNER ACCOUNT
                               </a>
@@ -293,10 +290,18 @@ const NftDataPage = (props: any) => {
                 <img id="mobile-artwork" alt="opera" src={artwork} />
               </div>
               <div
-                className="back-arrow-container"
-                onClick={() => history.push("/")}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                }}
               >
-                <BackArrow />
+                <div
+                  className="back-arrow-container"
+                  onClick={() => history.push("/")}
+                >
+                  <BackArrow />
+                </div>
               </div>
               <div className="bottom-drawer">
                 <div className="chevron-container">
