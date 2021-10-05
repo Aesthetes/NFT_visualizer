@@ -26,9 +26,6 @@
 
 .artwork-details {
   position: absolute;
-  // width: 20%;
-  // height: 15%;
-
   width: auto;
   height: auto;
   min-width: 300px;
@@ -150,7 +147,7 @@
 
 .third-row {
   position: absolute;
-  bottom: 3.8em;
+  bottom: 6rem;
 }
 
 .navigation-arrows {
@@ -167,16 +164,9 @@
 
   .go-to-details {
     color: white;
-    position: absolute;
     font-size: 24px;
     font-weight: bolder;
-    margin-left: -1rem;
     cursor: pointer;
-
-    .arrow {
-      position: absolute;
-      z-index: 1;
-    }
   }
 }
 .arrow-container {
@@ -184,11 +174,11 @@
   margin-right: -6rem;
 }
 .go-back-text {
-  text-align: center;
-  height: 0px;
+  color: white;
   font-size: 24px;
   font-weight: bolder;
-  padding-left: 4em;
+  text-align: right;
+  margin-right: -1rem;
 }
 .go-back {
   color: white;
@@ -308,6 +298,22 @@
   );
 }
 
+.back-arrow-container-desktop {
+  cursor: pointer;
+  padding: 1rem 2rem;
+  position: relative;
+  min-width: 130px;
+  background: linear-gradient(
+    50deg,
+    rgba(1, 1, 1, 1) 0%,
+    rgb(43, 43, 43) 50%,
+    rgb(48, 48, 48) 100%
+  );
+}
+.back-arrow-container-desktop-prev {
+  @extend .back-arrow-container-desktop;
+}
+
 .MuiDrawer-paperAnchorBottom {
   background-color: black !important;
   border-radius: 16px 16px 0 0;
@@ -387,6 +393,8 @@
   }
 }
 
+/* MEDIA QUERIES */
+
 @media screen and (max-height: 580px) {
   .onchain-info-container {
     height: 40%;
@@ -447,5 +455,23 @@
     .links-btn-container {
       justify-content: center;
     }
+  }
+}
+
+@media screen and (min-height: 820px) {
+  .third-row {
+    bottom: 8rem;
+  }
+}
+
+@media screen and (max-height: 550px) {
+  .third-row {
+    bottom: 4rem;
+  }
+}
+
+@media screen and (min-height: 1000px) {
+  .third-row {
+    bottom: 20%;
   }
 }
