@@ -1,6 +1,8 @@
 body {
-  overflow-y: hidden;
+  overflow-y: scroll;
 
   /* display: none; */
   /* content: url("./images/background.jpg"); */
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
 }
