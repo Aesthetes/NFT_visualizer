@@ -1,5 +1,8 @@
 {
   "nftForm": {
-    "visualize": "Visualizza"
+    "title": "Visualizza un NFT",
+    "visualize": "Visualizza",
+    "mainText": "Visualizza tutti gli NFT generati secondo gli standard Aesthetes.",
+    "secondaryText": "Unisciti alla rivoluzione degli XRPL NFT"
   }
 }

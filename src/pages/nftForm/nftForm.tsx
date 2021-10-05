@@ -33,12 +33,12 @@ const NftForm = (props: any) => {
       <Navbar />
       <SideMenu sideMenuVisible={!isMobile} />
       <div className="form-container">
-        <h1>Visualize a NFT</h1>
+        <h1>{t("nftForm.title")}</h1>
         <p>
-          Visualize all NFTs minted according to the Aesthetes' standards.
+          {t("nftForm.mainText")}
           <br />
           <br />
-          Join the XRPL NFTs revolution
+          {t("nftForm.secondaryText")}
         </p>
         <Formik
           initialValues={searchInitialValues}
@@ -103,8 +103,7 @@ const NftForm = (props: any) => {
                     id="action-btn"
                     onClick={() => handleSubmit()}
                   >
-                    {/* {t("nftForm.visualize")} */}
-                    Visualize
+                    {t("nftForm.visualize")}
                   </button>
                 </div>
               </div>
