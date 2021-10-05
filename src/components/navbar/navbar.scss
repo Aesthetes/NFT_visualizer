@@ -10,6 +10,10 @@
 
     .nav-title {
         margin-left: 2rem;
+        cursor: pointer;
+        background: linear-gradient(50deg, rgba(1,1,1,1) 0%, rgb(43, 43, 43) 50%, rgb(48, 48, 48) 100%);
+        padding: 0.5em;
+        border-radius: 8px;
     }
 
     .nav-menu {

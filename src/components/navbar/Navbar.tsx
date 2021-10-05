@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       {!isMobile && (
-        <div className="nav-title" style={{ cursor: "pointer" }}>
+        <div className="nav-title">
           <img
             alt="logo-aesthetes"
             src={logoAesthetes}
