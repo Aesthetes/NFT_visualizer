@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
-import Drawer from "@material-ui/core/Drawer";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import RightArrow from "../../images/rightArrow";
 import LeftArrow from "../../images/leftArrow";
 import { FaChevronUp } from "react-icons/fa";
@@ -278,10 +278,14 @@ const NftDataPage = (props: any) => {
                 </div>
                 NFT Info
               </div>
-              <Drawer
+              <SwipeableDrawer
                 BackdropProps={{ style: { opacity: 0 } }}
                 anchor="bottom"
                 open={isDrawerOpen}
+                onClose={() => setIsDrawerOpen(false)}
+                onOpen={() => setIsDrawerOpen(true)}
+                swipeAreaWidth={100}
+                disableSwipeToOpen={false}
               >
                 <div id="drawer-container">
                   <div
@@ -334,7 +338,7 @@ const NftDataPage = (props: any) => {
                     </div>
                   </div>
                 </div>
-              </Drawer>
+              </SwipeableDrawer>
             </div>
           )}
         </Swiper>

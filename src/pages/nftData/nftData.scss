@@ -26,11 +26,11 @@
 
 .artwork-details {
   position: absolute;
-  width: 15%;
+  width: 20%;
   height: 15%;
   top: 10rem;
-  left: 30px;
-  padding-left: 8px;
+  left: 14px;
+  padding-left: 2em;
   display: flex;
   flex-direction: column;
   color: white;
@@ -159,7 +159,7 @@
   height: 0px;
   font-size: 24px;
   font-weight: bolder;
-  margin-left: -3em;
+  //margin-left: -3em;
 }
 .go-back {
   color: white;
@@ -405,4 +405,6 @@
     }
   }
 }
+
+
 

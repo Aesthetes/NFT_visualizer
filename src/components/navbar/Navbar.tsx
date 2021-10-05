@@ -18,7 +18,7 @@ const Navbar = () => {
             src={logoAesthetes}
             width={150}
             height={"auto"}
-            onClick={() => window.open("http://www.aesthetes.art")}
+            onClick={() => window.open("https://www.aesthetes.art")}
           />
         </div>
       )}
@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="navbar-mobile">
           <div
             className="logo-div-mobile"
-            onClick={() => window.open("http://www.aesthetes.art")}
+            onClick={() => window.open("https://www.aesthetes.art")}
           >
             <Logo />
           </div>
