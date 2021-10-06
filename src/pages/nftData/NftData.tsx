@@ -99,8 +99,7 @@ const NftDataPage = (props: any) => {
   );
 
   const currentNetwork = match.params.network;
-  const currentNetworkForUrl =
-    currentNetwork === "testnet" ? currentNetwork.substring(0, 4) : "";
+  const currentNetworkForUrl = currentNetwork === "testnet" ? "test." : "";
 
   useEffect(() => {
     if (error) {
@@ -292,7 +291,7 @@ const NftDataPage = (props: any) => {
                             <div className="links-btn-container">
                               <a
                                 className="link-btn"
-                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.metadata_tx_hash}`}
+                                href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.metadata_tx_hash}`}
                                 target={"_blank"}
                                 rel="noreferrer"
                               >
@@ -300,7 +299,7 @@ const NftDataPage = (props: any) => {
                               </a>
                               <a
                                 className="link-btn"
-                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
+                                href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.actual_nft_owner}`}
                                 target={"_blank"}
                                 rel="noreferrer"
                               >
@@ -442,7 +441,7 @@ const NftDataPage = (props: any) => {
                     <div className="links-row-2-inner">
                       <a
                         className="link-btn"
-                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.metadata_tx_hash}`}
+                        href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.metadata_tx_hash}`}
                         target={"_blank"}
                         rel="noreferrer"
                       >
@@ -450,7 +449,7 @@ const NftDataPage = (props: any) => {
                       </a>
                       <a
                         className="link-btn"
-                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
+                        href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.actual_nft_owner}`}
                         target={"_blank"}
                         rel="noreferrer"
                       >
