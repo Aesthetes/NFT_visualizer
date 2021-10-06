@@ -47,7 +47,7 @@ async function getMemoTx(nft_cti, ripple_api_obj) {
   var _tx;
   for (var i = 0; i < ledger_txs.length; i++) {
     _tx = ledger_txs[i];
-    if (_tx.metaData.TransactionIndex == cti_tx_index) {
+    if (_tx.metaData.TransactionIndex === cti_tx_index) {
       //if the index is the correct one
       metadata_tx = _tx;
       break;
@@ -66,7 +66,7 @@ async function getMemoFromMemoTx(nft_cti, ripple_api_obj) {
   const _memo_tx_result = await getMemoTx(nft_cti, ripple_api_obj);
   const ledger_result = _memo_tx_result.ledger_result;
   const metadata_tx = _memo_tx_result.metadata_tx;
-  if (metadata_tx == null) {
+  if (metadata_tx === null) {
     //console.log("Incorrect CTI: Tx not found");
     throw new Error("Incorrect CTI: Tx not found");
   }
@@ -74,7 +74,7 @@ async function getMemoFromMemoTx(nft_cti, ripple_api_obj) {
   //get ledger hash, and take the 1st 4 bits
   const ledger_hash = ledger_result.ledger_hash;
   const ledger_hash_starting_4_bits = getFirst4BitsFromHexString(ledger_hash);
-  if (cti_ledger_hash != ledger_hash_starting_4_bits) {
+  if (cti_ledger_hash !== ledger_hash_starting_4_bits) {
     //console.log("Incorrect CTI: Ledger Hash not matching");
     throw new Error("Incorrect CTI: Ledger Hash not matching");
     //return null;
@@ -83,7 +83,7 @@ async function getMemoFromMemoTx(nft_cti, ripple_api_obj) {
   //get tx hash, and take the 1st 4 bits
   const tx_hash = metadata_tx.hash;
   const tx_hash_starting_4_bits = getFirst4BitsFromHexString(tx_hash);
-  if (cti_tx_hash != tx_hash_starting_4_bits) {
+  if (cti_tx_hash !== tx_hash_starting_4_bits) {
     //console.log("Incorrect CTI: Tx Hash not matching");
     throw new Error("Incorrect CTI: Tx Hash not matching");
     //return null;
@@ -154,7 +154,7 @@ async function getMetadata(metadata_cid, nft_cti, ripple_api_obj) {
   if (found) {
     //if all the metadata were successfully retrieved from IPFS
     //printWithPrefix("All the metadata were retrieved from IPFS!", _prefix);
-    if (nft_cti == 0) {
+    if (nft_cti === 0) {
       //if the CTI is not defined
       //printWithPrefix("the CTI is not defined, therefore we cannot retrieve the on-chain metadata Tx", _prefix);
       return metadata_obj;
@@ -171,21 +171,21 @@ async function getMetadata(metadata_cid, nft_cti, ripple_api_obj) {
   }
   //printWithPrefix("NOT all the metadata were retrieved from IPFS", _prefix);
 
-  if (nft_cti == 0) {
+  if (nft_cti === 0) {
     //if the CTI is not defined
     //printWithPrefix("the CTI is not defined, therefore we cannot retrieve the on-chain metadata", _prefix);
     return metadata_obj;
   }
   //if the CTI is defined, get the memo fields from the metadata Tx
   const _memos_obj = await getMemoFromMemoTx(nft_cti, ripple_api_obj);
-  if (_memos_obj == null) {
+  if (_memos_obj === null) {
     //printWithPrefix("no metadata Tx found found", _prefix);
     return metadata_obj;
   }
   //get the metadata Tx hash
   metadata_obj.metadata_tx_hash = _memos_obj.metadata_tx_hash;
   const memos = _memos_obj.memos;
-  if (memos == null) {
+  if (memos === null) {
     //printWithPrefix("no memos found", _prefix);
     return metadata_obj;
   }
@@ -194,11 +194,14 @@ async function getMetadata(metadata_cid, nft_cti, ripple_api_obj) {
   for (let i = 0; i < memos.length; i++) {
     memo_type = hexToAscii(memos[i].Memo.MemoType).toLowerCase();
 
-    if (memo_type == "description" && metadata_obj.description == null) {
+    if (memo_type === "description" && metadata_obj.description === null) {
       metadata_obj.description = hexToAscii(memos[i].Memo.MemoData);
-    } else if (memo_type == "author" && metadata_obj.author == null) {
+    } else if (memo_type === "author" && metadata_obj.author === null) {
       metadata_obj.author = hexToAscii(memos[i].Memo.MemoData);
-    } else if (memo_type == "primaryuri" && metadata_obj.content_url == null) {
+    } else if (
+      memo_type === "primaryuri" &&
+      metadata_obj.content_url === null
+    ) {
       metadata_obj.content_cid = extractCIDFromHashUrl(
         hexToAscii(memos[i].Memo.MemoData)
       );
@@ -253,23 +256,23 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
   for (let i = 0; i < transactions.length; i++) {
     const tx_data = transactions[i].tx;
 
-    if (tx_data.Account != issuer_address) {
+    if (tx_data.Account !== issuer_address) {
       //if the Tx is not initiated by issuer_address
       continue; //just skip it
     }
-    if (tx_data.TransactionType != "Payment") {
+    if (tx_data.TransactionType !== "Payment") {
       //if the Tx is not a payment
       continue; //just skip it
     }
     const tx_amount = tx_data.Amount;
     if (
-      tx_amount.currency != currency_id_hex_string || //if the currency is not the interested one
-      tx_amount.issuer != issuer_address
+      tx_amount.currency !== currency_id_hex_string || //if the currency is not the interested one
+      tx_amount.issuer !== issuer_address
     ) {
       // or if has not been issued by issuer_address
       continue; //just skip it
     }
-    if (tx_amount.value != "1000000000000000e-96") {
+    if (tx_amount.value !== "1000000000000000e-96") {
       //if the amount sent is not the indivisible one
       //printWithPrefix("there's a Tx issuing more than 1000000000000000e-96", _prefix);//then it's an error
       throw new Error(
@@ -277,7 +280,7 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
       );
       //return {is_ok: false, value: null};
     }
-    if (detected_hot_wallet_obj.value != null) {
+    if (detected_hot_wallet_obj.value !== null) {
       //if there's more than one issuing Tx
       //then it's an error
       //printWithPrefix("there's more than one issuing Tx or there's a trustline opened for this currency", _prefix);
@@ -300,7 +303,7 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
 
   if (
     detected_hot_wallet_obj.certified &&
-    detected_hot_wallet_obj.value == null
+    detected_hot_wallet_obj.value === null
   ) {
     //if we got all the Tx for prior to the one referenced
     //by the CTI, then we must also have the issuing Tx, so the hot wallet. If not, it means that there were no Txs concerning
@@ -313,19 +316,19 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
 }
 function isNegativeNFTValue(_value) {
   //const NFT_VALUE = "-0.000000000000000000000000000000000000000000000000000000000000000000000000000000001";
-  return _value == "-1000000000000000e-96";
+  return _value === "-1000000000000000e-96";
 }
 function isPositiveNFTValue(_value) {
   //const NFT_VALUE = "-0.000000000000000000000000000000000000000000000000000000000000000000000000000000001";
-  return _value == "1000000000000000e-96";
+  return _value === "1000000000000000e-96";
 }
 function isAnNFTCurrencyId(currency_id) {
   if (currency_id.length <= 3) {
     //check that what you got is not the 3 letter id
     return false;
   }
-  if (currency_id.substring(0, 2) != "02") {
-    //check that what you got starts w/ something != '02'
+  if (currency_id.substring(0, 2) !== "02") {
+    //check that what you got starts w/ something !== '02'
     return false;
   }
   return true;
@@ -333,7 +336,7 @@ function isAnNFTCurrencyId(currency_id) {
 function getNFTIdFromCurrencyId(currency_id) {
   var nft_id_hex_string = currency_id.substring(16, 40);
   nft_id_hex_string = nft_id_hex_string.replace(/^0+/, "");
-  if (nft_id_hex_string.length % 2 != 0) {
+  if (nft_id_hex_string.length % 2 !== 0) {
     nft_id_hex_string = "0" + nft_id_hex_string;
   }
   return hexToAscii(nft_id_hex_string);
@@ -345,7 +348,7 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
   const _prefix = "getActualNFTOwner: ";
 
   const balances = await rippleApiGetBalances(ripple_api_obj, issuer_address);
-  if (balances.length == 0) {
+  if (balances.length === 0) {
     //printWithPrefix("there's no balance in the inserted address", _prefix);
     throw new Error(
       "not an NFT: there are no balances in the inserted address"
@@ -364,14 +367,14 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
       continue; //skip it
     }
     _nft_id = getNFTIdFromCurrencyId(balances[i].currency);
-    if (_nft_id != nft_id) {
+    if (_nft_id !== nft_id) {
       //if the last 12 bytes are different
       continue; //skip it
     }
     _nft_cti = getNFTCTIFromCurrencyId(balances[i].currency);
-    if (detected_cti != null) {
+    if (detected_cti !== null) {
       //if the cti has already been found
-      if (detected_cti != _nft_cti) {
+      if (detected_cti !== _nft_cti) {
         //and if it's different from that then it's an error
         //printWithPrefix("ambiguity error: there's more than one currency with the same NFT id", _prefix);
         throw new Error(
@@ -385,7 +388,7 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
     }
     //now you are sure that this is the currency you are interested in
 
-    if (balances[i].value == "0") {
+    if (balances[i].value === "0") {
       //if the balance is 0 then it's useless
       continue;
     }
@@ -400,7 +403,7 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
       throw new Error("the inserted address is not the issuer for this NFT");
       //return {is_ok: false, value: null, cti: null};
     }
-    if (actual_nft_owner != null) {
+    if (actual_nft_owner !== null) {
       //if it's not the 1st time an amount is valid, then it's an error
       //printWithPrefix("there's more than one owner at the same time", _prefix);
       throw new Error(
@@ -411,7 +414,7 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
     actual_nft_owner = balances[i].counterparty;
   }
 
-  if (detected_cti == null) {
+  if (detected_cti === null) {
     //if detected_cti remained null it means that no currency with that name were found,
     throw Error("no currency with that name were found"); //so it's an error
   }
@@ -419,7 +422,7 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
 }
 async function isBlackHoled(issuer_address_settings) {
   if (
-    issuer_address_settings.regularKey != "rrrrrrrrrrrrrrrrrrrrBZbvji" ||
+    issuer_address_settings.regularKey !== "rrrrrrrrrrrrrrrrrrrrBZbvji" ||
     !issuer_address_settings.disableMasterKey
   ) {
     //if the account has not blackholed
@@ -517,7 +520,7 @@ async function getNFTMinter(detected_hot_wallet_obj, network, ripple_api_obj) {
     certified:
       is_hot_wallet_certified &&
       is_hot_wallet_domain_certified &&
-      detected_hot_wallet_domain == "aesthetes.art",
+      detected_hot_wallet_domain === "aesthetes.art",
     //certified: (is_hot_wallet_certified && is_hot_wallet_domain_certified),
     value: detected_hot_wallet_domain,
   };

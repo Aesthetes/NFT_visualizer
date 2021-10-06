@@ -1,5 +1,5 @@
 //Imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -46,11 +46,15 @@ SwiperCore.use([Navigation, Pagination]);
 const NftDataPage = (props: any) => {
   const { match } = props;
   const history = useHistory();
+
+  const videoRef = useRef();
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [issuer] = useState(match.params.issuer);
   const [id] = useState(match.params.id);
   const [activeQuery, setActiveQuery] = useState(false);
   const [error, setError] = useState(false);
+  const [play, setPlay] = useState(true);
   const [artwork, setArtwork] = useState<any>("");
   const [contentType, setContentType] = useState<any>("");
   const [nftData, setNftData] = useState<any>({
@@ -80,8 +84,6 @@ const NftDataPage = (props: any) => {
 
         setNftData(data);
 
-        console.log(data.content_cid);
-
         let { url, type } = await getNFTImage(data.content_cid);
 
         setArtwork(url);
@@ -108,6 +110,10 @@ const NftDataPage = (props: any) => {
       setActiveQuery(true);
     }
   }, [id, issuer, history, error, currentNetwork]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -153,8 +159,10 @@ const NftDataPage = (props: any) => {
                   {contentType?.includes("video") && (
                     <div style={{ position: "relative" }}>
                       <ReactPlayer
-                        playing={true}
+                        controls
+                        playing={play}
                         loop={true}
+                        playsinline={true}
                         url={artwork}
                         width="100%"
                         height="100%"
@@ -199,8 +207,10 @@ const NftDataPage = (props: any) => {
                     {contentType?.includes("video") && (
                       <div id={"artwork-small"}>
                         <ReactPlayer
-                          playing={true}
+                          controls
+                          playing={play}
                           loop={true}
+                          playsinline={true}
                           url={artwork}
                           width="100%"
                           height="100%"
@@ -347,11 +357,13 @@ const NftDataPage = (props: any) => {
                 )}
                 {contentType?.includes("video") && (
                   <div style={{ position: "relative" }}>
-                    <ReactPlayer
-                      playing={true}
-                      loop={true}
-                      url={artwork}
+                    <video
+                      controls
+                      src={artwork}
                       width="100%"
+                      autoPlay={play}
+                      loop={true}
+                      playsInline={true}
                     />
                   </div>
                 )}
