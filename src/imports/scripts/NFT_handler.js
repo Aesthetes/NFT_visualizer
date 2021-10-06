@@ -592,26 +592,33 @@ export const getNFTImage = async function (content_cid) {
 
   //if the CID is not null or undefined
   var image_object_url = null;
+  var image_object_type = null;
   //printWithPrefix("fetching image from CID " + content_cid + "...", _prefix);
   await IPFSFetch(content_cid)
-    .then((response) => {
+    .then(async (response) => {
       if (isUndefinedOrNull(response)) {
         throw new Error(
           "Fetching operation gave undefined or null as a response"
         );
       }
 
+      // var reader = new FileReader();
+      // reader.readAsDataURL(response.blob());
+      // reader.onloadend = function () {
+      //   var base64data = reader.result;
+      //   console.log(base64data);
+      // };
       return response.blob();
     })
     .then((image_blob) => {
       image_object_url = URL.createObjectURL(image_blob);
+      image_object_type = image_blob.type;
     })
     .catch((error) => {
       //printWithPrefix("image retrieval for " + content_cid + " (maybe partially) failed", _prefix);
       printErrorWithPrefix(error, _prefix);
       throw error;
     });
-
   //printWithPrefix("returning image_object_url as " + image_object_url, _prefix);
-  return image_object_url;
+  return { url: image_object_url, type: image_object_type };
 };

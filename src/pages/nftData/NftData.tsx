@@ -9,9 +9,12 @@ import Lottie from "react-lottie-player";
 import loaderAnimationData from "../../lotties/loader.json";
 import { getNFTMetadata, getNFTImage } from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
+
 //Components
 import Navbar from "../../components/navbar/Navbar";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import ReactPlayer from "react-player";
+
 //Images and icons
 import { FaChevronUp } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
@@ -19,8 +22,10 @@ import BackArrow from "../../images/backArrow";
 import GreenCheck from "../../images/greenCheck";
 import OnlyArrowBack from "../../images/onlyArrowBack";
 import OnlyArrowForward from "../../images/onlyArrowForward";
+
 //Style
 import "./nftData.scss";
+import nftBackground from "../../images/nft-background.jpg";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -47,6 +52,7 @@ const NftDataPage = (props: any) => {
   const [activeQuery, setActiveQuery] = useState(false);
   const [error, setError] = useState(false);
   const [artwork, setArtwork] = useState<any>("");
+  const [contentType, setContentType] = useState<any>("");
   const [nftData, setNftData] = useState<any>({
     identifier: "",
     actual_nft_owner: "",
@@ -73,7 +79,11 @@ const NftDataPage = (props: any) => {
         let data = await getNFTMetadata(issuer, id, match.params.network);
 
         setNftData(data);
-        setArtwork(await getNFTImage(data.content_cid));
+
+        let { url, type } = await getNFTImage(data.content_cid);
+
+        setArtwork(url);
+        setContentType(type);
       } catch (e) {
         setError(true);
       }
@@ -89,7 +99,6 @@ const NftDataPage = (props: any) => {
 
   useEffect(() => {
     if (error) {
-      //console.log("ERRORE");
       history.push(`/${currentNetwork}/error`);
     }
     if (issuer && id) {
@@ -128,9 +137,26 @@ const NftDataPage = (props: any) => {
           {/* DESKTOP */}
           {!isMobile && (
             <>
-              <SwiperSlide style={{ width: "100%" }}>
+              <SwiperSlide
+                style={{
+                  width: "100%",
+                  height: "100vh",
+                }}
+              >
                 <div id="artwork-container">
-                  <img id="artwork" alt="opera" src={artwork} />
+                  {contentType?.includes("image") && (
+                    <img id="artwork" alt="opera" src={artwork} />
+                  )}
+                  {contentType?.includes("video") && (
+                    <div style={{ position: "relative" }}>
+                      <ReactPlayer
+                        playing={true}
+                        url={artwork}
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                  )}
                   <div className="artwork-details">
                     <div
                       className="name-container"
@@ -163,7 +189,20 @@ const NftDataPage = (props: any) => {
               <SwiperSlide>
                 <div id="wrapper">
                   <div className="artwork-container-small">
-                    <img id="artwork-small" alt="opera" src={artwork} />
+                    {contentType?.includes("image") && (
+                      <img id="artwork-small" alt="opera" src={artwork} />
+                    )}
+                    {contentType?.includes("video") && (
+                      <div id={"artwork-small"}>
+                        <ReactPlayer
+                          playing={true}
+                          url={artwork}
+                          width="100%"
+                          height="100%"
+                          style={{ zIndex: 0 }}
+                        />
+                      </div>
+                    )}
                     <div className="third-row">
                       <div className="go-back">
                         <div className="back-arrow-container-desktop-prev">
@@ -270,7 +309,9 @@ const NftDataPage = (props: any) => {
               <div
                 className="mobile-container"
                 style={{
-                  backgroundImage: `url(${artwork})`,
+                  backgroundImage: `url(${
+                    contentType?.includes("image") ? artwork : nftBackground
+                  })`,
                   zIndex: 0,
                   opacity: 0.8,
                   position: "absolute",
@@ -297,7 +338,14 @@ const NftDataPage = (props: any) => {
                 </div>
               </div>
               <div className="mobile-artwork-container">
-                <img id="mobile-artwork" alt="opera" src={artwork} />
+                {contentType.includes("image") && (
+                  <img id="mobile-artwork" alt="opera" src={artwork} />
+                )}
+                {contentType?.includes("video") && (
+                  <div style={{ position: "relative" }}>
+                    <ReactPlayer playing={true} url={artwork} width="100%" />
+                  </div>
+                )}
               </div>
               <div
                 style={{

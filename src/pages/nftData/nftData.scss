@@ -16,6 +16,10 @@
 #artwork-container {
   width: 100%;
   margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #artwork {
@@ -135,6 +139,10 @@
 .nft-description-text {
   line-height: 2em;
   font-size: 0.9em;
+}
+
+.first-row {
+  z-index: 99;
 }
 
 .second-row {
