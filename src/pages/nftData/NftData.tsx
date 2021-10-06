@@ -97,8 +97,6 @@ const NftDataPage = (props: any) => {
     }
   }, [id, issuer, history, error, currentNetwork]);
 
-  console.log("NFT DATA ==>", nftData);
-
   return (
     <>
       {loading && (
