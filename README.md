@@ -1,4 +1,4 @@
 # AESTHETES NFT VISUALIZER
 
-This project is an NFT visualizer for Ripple Network.
+This project is a NFT visualizer for Ripple Network.
 
