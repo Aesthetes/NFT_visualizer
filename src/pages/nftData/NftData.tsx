@@ -80,11 +80,14 @@ const NftDataPage = (props: any) => {
 
         setNftData(data);
 
+        console.log(data.content_cid);
+
         let { url, type } = await getNFTImage(data.content_cid);
 
         setArtwork(url);
         setContentType(type);
       } catch (e) {
+        console.log(e);
         setError(true);
       }
     },
@@ -151,6 +154,7 @@ const NftDataPage = (props: any) => {
                     <div style={{ position: "relative" }}>
                       <ReactPlayer
                         playing={true}
+                        loop={true}
                         url={artwork}
                         width="100%"
                         height="100%"
@@ -196,10 +200,10 @@ const NftDataPage = (props: any) => {
                       <div id={"artwork-small"}>
                         <ReactPlayer
                           playing={true}
+                          loop={true}
                           url={artwork}
                           width="100%"
                           height="100%"
-                          style={{ zIndex: 0 }}
                         />
                       </div>
                     )}
@@ -343,7 +347,12 @@ const NftDataPage = (props: any) => {
                 )}
                 {contentType?.includes("video") && (
                   <div style={{ position: "relative" }}>
-                    <ReactPlayer playing={true} url={artwork} width="100%" />
+                    <ReactPlayer
+                      playing={true}
+                      loop={true}
+                      url={artwork}
+                      width="100%"
+                    />
                   </div>
                 )}
               </div>
