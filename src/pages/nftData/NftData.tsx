@@ -165,7 +165,7 @@ const NftDataPage = (props: any) => {
                         playsinline={true}
                         url={artwork}
                         width="100%"
-                        height="100%"
+                        height="100vh"
                       />
                     </div>
                   )}

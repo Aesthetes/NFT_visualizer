@@ -466,20 +466,26 @@
   }
 }
 
+@media screen and (max-height: 660px) {
+  .navigation-arrows {
+    bottom: 4rem;
+  }
+}
+
 @media screen and (min-height: 820px) {
   .third-row {
-    bottom: 8rem;
+    bottom: 15rem;
   }
 }
 
 @media screen and (max-height: 550px) {
   .third-row {
-    bottom: 4rem;
+    bottom: 9rem;
   }
 }
 
-@media screen and (min-height: 1000px) {
+@media screen and (max-height: 819px) and (min-height: 550px) {
   .third-row {
-    bottom: 20%;
+    bottom: 10rem;
   }
 }
