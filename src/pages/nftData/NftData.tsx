@@ -183,13 +183,17 @@ const NftDataPage = (props: any) => {
                   </div>
                   <div className="navigation-arrows">
                     <div
-                      className="back-arrow-container-desktop"
+                      className="back-arrow-container-desktop left"
+                      style={{ marginLeft: "32px" }}
                       onClick={() => history.push("/")}
                     >
                       <p className="go-back-text">Back</p>
                       <OnlyArrowBack />
                     </div>
-                    <div className="back-arrow-container-desktop">
+                    <div
+                      className="back-arrow-container-desktop right"
+                      style={{ marginRight: "32px" }}
+                    >
                       <p className="go-to-details">NFT Info</p>
                       <OnlyArrowForward />
                     </div>
@@ -204,7 +208,15 @@ const NftDataPage = (props: any) => {
                       <img id="artwork-small" alt="opera" src={artwork} />
                     )}
                     {contentType?.includes("video") && (
-                      <div id={"artwork-small"}>
+                      <div
+                        id={"artwork-small"}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: "auto",
+                        }}
+                      >
                         <ReactPlayer
                           controls
                           playing={play}
@@ -217,16 +229,14 @@ const NftDataPage = (props: any) => {
                       </div>
                     )}
                     <div className="third-row">
-                      <div className="go-back">
-                        <div className="back-arrow-container-desktop-prev">
-                          <p
-                            className="go-back-text"
-                            style={{ fontSize: "16px" }}
-                          >
-                            BACK to Visualizer
-                          </p>
-                          <OnlyArrowBack />
-                        </div>
+                      <div className="back-arrow-container-desktop-prev left">
+                        <p
+                          className="go-back-text"
+                          style={{ fontSize: "16px" }}
+                        >
+                          BACK to Visualizer
+                        </p>
+                        <OnlyArrowBack />
                       </div>
                     </div>
                   </div>
