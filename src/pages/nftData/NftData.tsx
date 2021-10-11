@@ -12,6 +12,7 @@ import {
   getNFTContent,
 } from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
+import i18next from "../../imports/i18n/i18n";
 
 //Components
 import Navbar from "../../components/navbar/Navbar";
@@ -72,6 +73,7 @@ const NftDataPage = (props: any) => {
     content_cid: "",
   });
 
+  const t = i18next.t.bind(i18next);
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
@@ -174,11 +176,15 @@ const NftDataPage = (props: any) => {
                       className="name-container"
                       style={{ paddingBottom: "1rem" }}
                     >
-                      <p className="artwork-details-label">Name:</p>
+                      <p className="artwork-details-label">
+                        {t("nftData.name")}:
+                      </p>
                       <p>{nftData?.name}</p>
                     </div>
                     <div className="author-container">
-                      <p className="artwork-details-label">Author:</p>
+                      <p className="artwork-details-label">
+                        {t("nftData.author")}:
+                      </p>
                       <p>{nftData?.author}</p>
                     </div>
                   </div>
@@ -188,14 +194,14 @@ const NftDataPage = (props: any) => {
                       style={{ marginLeft: "32px" }}
                       onClick={() => history.push("/")}
                     >
-                      <p className="go-back-text">Back</p>
+                      <p className="go-back-text">{t("nftData.back")}</p>
                       <OnlyArrowBack />
                     </div>
                     <div
                       className="back-arrow-container-desktop right"
                       style={{ marginRight: "32px" }}
                     >
-                      <p className="go-to-details">NFT Info</p>
+                      <p className="go-to-details">{t("nftData.nftInfo")}</p>
                       <OnlyArrowForward />
                     </div>
                   </div>
@@ -235,7 +241,7 @@ const NftDataPage = (props: any) => {
                           className="go-back-text"
                           style={{ fontSize: "16px" }}
                         >
-                          BACK to Visualizer
+                          {t("nftData.backToVisualizer")}
                         </p>
                         <OnlyArrowBack />
                       </div>
@@ -243,18 +249,22 @@ const NftDataPage = (props: any) => {
                   </div>
                   <div className="data-container">
                     <div className="nft-title-info">
-                      <p>NFT Info</p>
+                      <p>{t("nftData.nftInfo")}</p>
                     </div>
                     <div className="first-row">
                       <div className="nft-info">
                         <div className="nft-info-container">
                           <div className="author-name">
                             <div className="name-container">
-                              <p className="artwork-details-label">Name:</p>
+                              <p className="artwork-details-label">
+                                {t("nftData.name")}:
+                              </p>
                               <p>{nftData?.name}</p>
                             </div>
                             <div className="author-container">
-                              <p className="artwork-details-label">Author:</p>
+                              <p className="artwork-details-label">
+                                {t("nftData.author")}:
+                              </p>
                               <p>{nftData?.author}</p>
                             </div>
                           </div>
@@ -265,7 +275,9 @@ const NftDataPage = (props: any) => {
                           )}
                         </div>
                         <div className="description-container">
-                          <p className="nft-description">Description:</p>
+                          <p className="nft-description">
+                            {t("nftData.description")}:
+                          </p>
                           <p className="nft-description-text">
                             {nftData?.description}
                           </p>
@@ -348,11 +360,15 @@ const NftDataPage = (props: any) => {
                 <div className="nft-info-container">
                   <div className="author-name" style={{ paddingLeft: "1rem" }}>
                     <div className="name-container">
-                      <p className="mobile-artwork-details-label">Name:</p>
+                      <p className="mobile-artwork-details-label">
+                        {t("nftData.name")}:
+                      </p>
                       <p>{nftData?.name}</p>
                     </div>
                     <div className="author-container">
-                      <p className="mobile-artwork-details-label">Author:</p>
+                      <p className="mobile-artwork-details-label">
+                        {t("nftData.author")}:
+                      </p>
                       <p>{nftData?.author}</p>
                     </div>
                   </div>
@@ -399,7 +415,7 @@ const NftDataPage = (props: any) => {
                     onClick={() => setIsDrawerOpen(true)}
                   />
                 </div>
-                NFT Info
+                {t("nftData.nftInfo")}:
               </div>
               <SwipeableDrawer
                 BackdropProps={{ style: { opacity: 0 } }}
@@ -420,8 +436,10 @@ const NftDataPage = (props: any) => {
                   <div className="mobile-nft-info">
                     <div className="description-container">
                       <div className="drawer-headings">
-                        <h3>NFT Info</h3>
-                        <p className="nft-description">Description:</p>
+                        <h3>{t("nftData.nftInfo")}:</h3>
+                        <p className="nft-description">
+                          {t("nftData.description")}:
+                        </p>
                       </div>
                       <p className="description">{nftData?.description}</p>
                     </div>

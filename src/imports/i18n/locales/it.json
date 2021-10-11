@@ -3,6 +3,20 @@
     "title": "Visualizza un NFT",
     "visualize": "Visualizza",
     "mainText": "Visualizza tutti gli NFT generati secondo gli standard Aesthetes.",
-    "secondaryText": "Unisciti alla rivoluzione degli XRPL NFT"
+    "secondaryText": "Unisciti alla rivoluzione degli XRPL NFT",
+    "address": "Indirizzo emittente NFT",
+    "identifier": "Identificativo NFT (nome currency)"
+  },
+  "nftData": {
+    "name": "Nome",
+    "author": "Autore",
+    "description": "Descrizione",
+    "back": "INDIETRO",
+    "nftInfo": "Dettagli NFT",
+    "backToVisualizer": "Visualizzatore",
+    "onChainInfo": ""
+  },
+  "error": {
+    "search": "Cerca un altro NFT"
   }
 }

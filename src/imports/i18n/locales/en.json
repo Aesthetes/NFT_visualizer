@@ -4,7 +4,19 @@
     "visualize": "Visualize",
     "mainText": "Visualize all NFTs minted according to the Aesthetes' standards.",
     "secondaryText": "Join the XRPL NFTs Revolution",
-    "issuer_address": "Address of the NFT Issuer",
-    "currencyName": "Identifier of the NFT (currency name)"
+    "address": "Address of the NFT Issuer",
+    "identifier": "Identifier of the NFT (currency name)"
+  },
+  "nftData": {
+    "name": "Name",
+    "author": "Author",
+    "description": "Description",
+    "back": "BACK",
+    "nftInfo": "NFT Info",
+    "backToVisualizer": "BACK to Visualizer",
+    "onChainInfo": "On-chain information"
+  },
+  "error": {
+    "search": "Search another NFT"
   }
 }
