@@ -22,12 +22,11 @@ const NftForm = (props: any) => {
   const [network, setNetwork] = useState(match.params.network);
 
   useEffect(() => {
+    console.log(match.params.network);
     setNetwork(match.params.network);
   }, [match]);
 
-  useEffect(() => {
-    setNetwork(match.params.network);
-  }, [match]);
+  console.log("NETWORK ==>", network);
 
   return (
     <div
@@ -75,7 +74,7 @@ const NftForm = (props: any) => {
                   />
                 </div>
                 <RadioGroup
-                  defaultValue="testnet"
+                  defaultValue={network}
                   className="radio-btn-container"
                 >
                   <div className="radio-container">

@@ -7,7 +7,10 @@ import { useMediaQuery } from "react-responsive";
 import { useQuery } from "react-query";
 import Lottie from "react-lottie-player";
 import loaderAnimationData from "../../lotties/loader.json";
-import { getNFTMetadata, getNFTImage } from "../../imports/scripts/NFT_handler";
+import {
+  getNFTMetadata,
+  getNFTContent,
+} from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
 
 //Components
@@ -47,8 +50,6 @@ const NftDataPage = (props: any) => {
   const { match } = props;
   const history = useHistory();
 
-  const videoRef = useRef();
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [issuer] = useState(match.params.issuer);
   const [id] = useState(match.params.id);
@@ -84,7 +85,7 @@ const NftDataPage = (props: any) => {
 
         setNftData(data);
 
-        let { url, type } = await getNFTImage(data.content_cid);
+        let { url, type } = await getNFTContent(data.content_cid);
 
         setArtwork(url);
         setContentType(type);
