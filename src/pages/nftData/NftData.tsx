@@ -1,25 +1,38 @@
-import { useState, useEffect } from "react";
-import Navbar from "../../components/navbar/Navbar";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import RightArrow from "../../images/rightArrow";
-import LeftArrow from "../../images/leftArrow";
-import { FaChevronUp } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-import { Swiper, SwiperSlide } from "swiper/react";
+//Imports
+import { useState, useEffect, useRef } from "react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { useMediaQuery } from "react-responsive";
-import "./nftData.scss";
 import { useQuery } from "react-query";
 import Lottie from "react-lottie-player";
 import loaderAnimationData from "../../lotties/loader.json";
-import { getNFTMetadata, getNFTImage } from "../../imports/scripts/NFT_handler";
+import {
+  getNFTMetadata,
+  getNFTContent,
+} from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
-import GreenCheck from "../../images/greenCheck";
+
+//Components
+import Navbar from "../../components/navbar/Navbar";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import ReactPlayer from "react-player";
+
+//Images and icons
+import { FaChevronUp } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 import BackArrow from "../../images/backArrow";
+import GreenCheck from "../../images/greenCheck";
+import OnlyArrowBack from "../../images/onlyArrowBack";
+import OnlyArrowForward from "../../images/onlyArrowForward";
+
+//Style
+import "./nftData.scss";
+import nftBackground from "../../images/nft-background.jpg";
+
 SwiperCore.use([Navigation, Pagination]);
 
-type NftData = {
+/* type NftData = {
   identifier: string;
   actual_nft_owner: string;
   detected_hot_wallet_obj: string;
@@ -31,16 +44,20 @@ type NftData = {
   description: string;
   author: string;
   content_cid: string;
-};
+}; */
 
 const NftDataPage = (props: any) => {
   const { match } = props;
   const history = useHistory();
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [issuer, setIssuer] = useState(match.params.issuer);
-  const [id, setId] = useState(match.params.id);
+  const [issuer] = useState(match.params.issuer);
+  const [id] = useState(match.params.id);
   const [activeQuery, setActiveQuery] = useState(false);
+  const [error, setError] = useState(false);
+  const [play, setPlay] = useState(true);
   const [artwork, setArtwork] = useState<any>("");
+  const [contentType, setContentType] = useState<any>("");
   const [nftData, setNftData] = useState<any>({
     identifier: "",
     actual_nft_owner: "",
@@ -55,22 +72,27 @@ const NftDataPage = (props: any) => {
     content_cid: "",
   });
 
-  useEffect(() => {
-    console.log("qweqwe", isDrawerOpen);
-  }, [isDrawerOpen]);
-
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
 
-  const { isFetching: loading, error } = useQuery(
+  const { isFetching: loading } = useQuery(
     "featchNFTData",
     async () => {
-      setActiveQuery(false);
-      let data = await getNFTMetadata(issuer, id, match.params.network);
+      try {
+        setActiveQuery(false);
+        let data = await getNFTMetadata(issuer, id, match.params.network);
 
-      setNftData(data);
-      setArtwork(await getNFTImage(data.content_cid));
+        setNftData(data);
+
+        let { url, type } = await getNFTContent(data.content_cid);
+
+        setArtwork(url);
+        setContentType(type);
+      } catch (e) {
+        console.log(e);
+        setError(true);
+      }
     },
     {
       enabled: activeQuery,
@@ -78,12 +100,10 @@ const NftDataPage = (props: any) => {
   );
 
   const currentNetwork = match.params.network;
-  const currentNetworkForUrl =
-    currentNetwork === "testnet" ? currentNetwork.substring(0, 4) : "";
+  const currentNetworkForUrl = currentNetwork === "testnet" ? "test." : "";
 
   useEffect(() => {
     if (error) {
-      //console.log("ERRORE");
       history.push(`/${currentNetwork}/error`);
     }
     if (issuer && id) {
@@ -91,7 +111,9 @@ const NftDataPage = (props: any) => {
     }
   }, [id, issuer, history, error, currentNetwork]);
 
-  console.log("NFTDATA ==>", nftData);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -108,25 +130,50 @@ const NftDataPage = (props: any) => {
           />
         </div>
       )}
-      <div id="single-nft-container">
+      <div id={`single-nft-container`} style={isMobile ? {} : { width: "90%" }}>
         <Navbar />
         <Swiper
+          centeredSlides
+          centeredSlidesBounds
           pagination={{ clickable: true }}
-          spaceBetween={50}
+          spaceBetween={0}
           slidesPerView={1}
           navigation={{
-            nextEl: ".arrow-container",
-            prevEl: ".left-arrow-container",
+            nextEl: ".back-arrow-container-desktop",
+            prevEl: ".back-arrow-container-desktop-prev",
           }}
         >
           {/* DESKTOP */}
           {!isMobile && (
             <>
-              <SwiperSlide>
+              <SwiperSlide
+                style={{
+                  width: "100%",
+                  height: "100vh",
+                }}
+              >
                 <div id="artwork-container">
-                  <img id="artwork" alt="opera" src={artwork} />
+                  {contentType?.includes("image") && (
+                    <img id="artwork" alt="opera" src={artwork} />
+                  )}
+                  {contentType?.includes("video") && (
+                    <div style={{ position: "relative" }}>
+                      <ReactPlayer
+                        controls
+                        playing={play}
+                        loop={true}
+                        playsinline={true}
+                        url={artwork}
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                  )}
                   <div className="artwork-details">
-                    <div className="name-container">
+                    <div
+                      className="name-container"
+                      style={{ paddingBottom: "1rem" }}
+                    >
                       <p className="artwork-details-label">Name:</p>
                       <p>{nftData?.name}</p>
                     </div>
@@ -137,15 +184,19 @@ const NftDataPage = (props: any) => {
                   </div>
                   <div className="navigation-arrows">
                     <div
-                      className="left-arrow-container"
+                      className="back-arrow-container-desktop left"
+                      style={{ marginLeft: "32px" }}
                       onClick={() => history.push("/")}
                     >
-                      <p className="go-back-text">BACK</p>
-                      <LeftArrow />
+                      <p className="go-back-text">Back</p>
+                      <OnlyArrowBack />
                     </div>
-                    <div className="arrow-container">
+                    <div
+                      className="back-arrow-container-desktop right"
+                      style={{ marginRight: "32px" }}
+                    >
                       <p className="go-to-details">NFT Info</p>
-                      <RightArrow />
+                      <OnlyArrowForward />
                     </div>
                   </div>
                 </div>
@@ -154,13 +205,39 @@ const NftDataPage = (props: any) => {
               <SwiperSlide>
                 <div id="wrapper">
                   <div className="artwork-container-small">
-                    <img id="artwork-small" alt="opera" src={artwork} />
+                    {contentType?.includes("image") && (
+                      <img id="artwork-small" alt="opera" src={artwork} />
+                    )}
+                    {contentType?.includes("video") && (
+                      <div
+                        id={"artwork-small"}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: "auto",
+                        }}
+                      >
+                        <ReactPlayer
+                          controls
+                          playing={play}
+                          loop={true}
+                          playsinline={true}
+                          url={artwork}
+                          width="100%"
+                          height="100%"
+                        />
+                      </div>
+                    )}
                     <div className="third-row">
-                      <div className="go-back">
-                        <div className="left-arrow-container">
-                          <p className="go-back-text">BACK to Visualizer</p>
-                          <LeftArrow />
-                        </div>
+                      <div className="back-arrow-container-desktop-prev left">
+                        <p
+                          className="go-back-text"
+                          style={{ fontSize: "16px" }}
+                        >
+                          BACK to Visualizer
+                        </p>
+                        <OnlyArrowBack />
                       </div>
                     </div>
                   </div>
@@ -170,13 +247,22 @@ const NftDataPage = (props: any) => {
                     </div>
                     <div className="first-row">
                       <div className="nft-info">
-                        <div className="name-container">
-                          <p className="artwork-details-label">Name:</p>
-                          <p>{nftData?.name}</p>
-                        </div>
-                        <div className="author-container">
-                          <p className="artwork-details-label">Author:</p>
-                          <p>{nftData?.author}</p>
+                        <div className="nft-info-container">
+                          <div className="author-name">
+                            <div className="name-container">
+                              <p className="artwork-details-label">Name:</p>
+                              <p>{nftData?.name}</p>
+                            </div>
+                            <div className="author-container">
+                              <p className="artwork-details-label">Author:</p>
+                              <p>{nftData?.author}</p>
+                            </div>
+                          </div>
+                          {nftData?.detected_minter_obj.certified && (
+                            <div className="links-with-check">
+                              <GreenCheck />
+                            </div>
+                          )}
                         </div>
                         <div className="description-container">
                           <p className="nft-description">Description:</p>
@@ -189,16 +275,12 @@ const NftDataPage = (props: any) => {
                     <div className="second-row">
                       <div className="links-container">
                         <div className="links-row">
-                          {nftData?.detected_minter_obj.certified && (
-                            <div className="links-with-check">
-                              <GreenCheck />
-                            </div>
-                          )}
                           <div className="links-btn-container">
                             <a
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
                               target={"_blank"}
+                              rel="noreferrer"
                             >
                               DIGITAL ARTWORK
                             </a>
@@ -206,6 +288,7 @@ const NftDataPage = (props: any) => {
                               className="link-btn"
                               href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
                               target={"_blank"}
+                              rel="noreferrer"
                             >
                               NFT METADATA
                             </a>
@@ -219,15 +302,17 @@ const NftDataPage = (props: any) => {
                             <div className="links-btn-container">
                               <a
                                 className="link-btn"
-                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.metadata_tx_hash}`}
+                                href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.metadata_tx_hash}`}
                                 target={"_blank"}
+                                rel="noreferrer"
                               >
                                 ISSUING DATA
                               </a>
                               <a
                                 className="link-btn"
-                                href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
+                                href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.actual_nft_owner}`}
                                 target={"_blank"}
+                                rel="noreferrer"
                               >
                                 OWNER ACCOUNT
                               </a>
@@ -244,14 +329,13 @@ const NftDataPage = (props: any) => {
 
           {/* MOBILE */}
           {isMobile && (
-            <div
-              className="mobile-container"
-              // style={{ backgroundImage: `url(${artwork})` }}
-            >
+            <div className="mobile-container">
               <div
                 className="mobile-container"
                 style={{
-                  backgroundImage: `url(${artwork})`,
+                  backgroundImage: `url(${
+                    contentType?.includes("image") ? artwork : nftBackground
+                  })`,
                   zIndex: 0,
                   opacity: 0.8,
                   position: "absolute",
@@ -261,26 +345,52 @@ const NftDataPage = (props: any) => {
               />
 
               <div className="mobile-artwork-details">
-                <div className="name-container">
-                  <p className="mobile-artwork-details-label">Name:</p>
-                  <p>{nftData?.name}</p>
-                </div>
-                <div className="author-container">
-                  <p className="mobile-artwork-details-label">Author:</p>
-                  <p>{nftData?.author}</p>
+                <div className="nft-info-container">
+                  <div className="author-name" style={{ paddingLeft: "1rem" }}>
+                    <div className="name-container">
+                      <p className="mobile-artwork-details-label">Name:</p>
+                      <p>{nftData?.name}</p>
+                    </div>
+                    <div className="author-container">
+                      <p className="mobile-artwork-details-label">Author:</p>
+                      <p>{nftData?.author}</p>
+                    </div>
+                  </div>
+                  <div className="check">
+                    <GreenCheck />
+                  </div>
                 </div>
               </div>
               <div className="mobile-artwork-container">
-                <div className="check">
-                  <GreenCheck />
-                </div>
-                <img id="mobile-artwork" alt="opera" src={artwork} />
+                {contentType.includes("image") && (
+                  <img id="mobile-artwork" alt="opera" src={artwork} />
+                )}
+                {contentType?.includes("video") && (
+                  <div style={{ position: "relative" }}>
+                    <video
+                      controls
+                      src={artwork}
+                      width="100%"
+                      autoPlay={play}
+                      loop={true}
+                      playsInline={true}
+                    />
+                  </div>
+                )}
               </div>
               <div
-                className="back-arrow-container"
-                onClick={() => history.push("/")}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                }}
               >
-                <BackArrow />
+                <div
+                  className="back-arrow-container"
+                  onClick={() => history.push("/")}
+                >
+                  <BackArrow />
+                </div>
               </div>
               <div className="bottom-drawer">
                 <div className="chevron-container">
@@ -297,8 +407,7 @@ const NftDataPage = (props: any) => {
                 open={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}
                 onOpen={() => setIsDrawerOpen(true)}
-                //onClick={() => setIsDrawerOpen(true)}
-                swipeAreaWidth={70}
+                swipeAreaWidth={60}
                 disableSwipeToOpen={false}
               >
                 <div id="drawer-container">
@@ -322,6 +431,7 @@ const NftDataPage = (props: any) => {
                       className="link-btn"
                       href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
                       target={"_blank"}
+                      rel="noreferrer"
                     >
                       DIGITAL ARTWORK
                     </a>
@@ -329,6 +439,7 @@ const NftDataPage = (props: any) => {
                       className="link-btn"
                       href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
                       target={"_blank"}
+                      rel="noreferrer"
                     >
                       NFT METADATA
                     </a>
@@ -341,15 +452,17 @@ const NftDataPage = (props: any) => {
                     <div className="links-row-2-inner">
                       <a
                         className="link-btn"
-                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.metadata_tx_hash}`}
+                        href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.metadata_tx_hash}`}
                         target={"_blank"}
+                        rel="noreferrer"
                       >
                         ISSUING DATA
                       </a>
                       <a
                         className="link-btn"
-                        href={`https://${currentNetworkForUrl}.bithomp.com/explorer/${nftData.actual_nft_owner}`}
+                        href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.actual_nft_owner}`}
                         target={"_blank"}
+                        rel="noreferrer"
                       >
                         OWNER ACCOUNT
                       </a>

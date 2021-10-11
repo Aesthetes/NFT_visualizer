@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Switch>
           {/* <Route exact path="/" component={ErrorPage} /> */}
-          <Route exact path="/" render={() => <Redirect to={"/testnet"} />} />
+          <Route exact path="/" render={() => <Redirect to={"/mainnet"} />} />
           <Route exact path="/:network" component={NftForm} />
           {/* <Route path="/:network/nft-data" component={NftData} /> */}
           <Route

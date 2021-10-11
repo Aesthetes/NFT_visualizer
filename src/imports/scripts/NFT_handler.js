@@ -1,3 +1,5 @@
+/* global BigInt */
+
 import {
   printErrorWithPrefix,
   printWithPrefix,
@@ -16,6 +18,7 @@ import {
 import {
   getCorrectRippleApiObj,
   connectToAServer,
+  logConnectionStatus,
   ctiTxIndex,
   ctiLedgerIndex,
   ctiLedgerHash,
@@ -46,8 +49,10 @@ async function getMemoTx(nft_cti, ripple_api_obj) {
   var _tx;
   for (var i = 0; i < ledger_txs.length; i++) {
     _tx = ledger_txs[i];
-    if (_tx.metaData.TransactionIndex === cti_tx_index) {
+    if (BigInt(_tx.metaData.TransactionIndex) === cti_tx_index) {
       //if the index is the correct one
+      //console.log("_tx.metaData.TransactionIndex: " + _tx.metaData.TransactionIndex + ", " + typeof _tx.metaData.TransactionIndex);
+      //console.log("cti_tx_index: " + cti_tx_index + ", " + typeof cti_tx_index);
       metadata_tx = _tx;
       break;
     }
@@ -189,7 +194,6 @@ async function getMetadata(metadata_cid, nft_cti, ripple_api_obj) {
     return metadata_obj;
   }
 
-  const backups_found = !isUndefinedOrNull(metadata_obj.backup_urls);
   var memo_type;
   for (let i = 0; i < memos.length; i++) {
     memo_type = hexToAscii(memos[i].Memo.MemoType).toLowerCase();
@@ -224,7 +228,15 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
     certified: false,
   };
 
-  const _ledger_index = ctiLedgerIndex(nft_cti);
+  //TODO PUSH THESE CHANGES
+  //OLD
+  //const _ledger_index = ctiLedgerIndex(nft_cti);
+  //NEW
+  var _ledger_index;
+  if (nft_cti > 0) {
+    _ledger_index = ctiLedgerIndex(nft_cti);
+  }
+
   //request the account's transactions
   const result = await rippleApiRequest(ripple_api_obj, "account_tx", {
     account: issuer_address,
@@ -233,7 +245,11 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
     ledger_index_min: -1,
     ledger_index_max: -1,
   });
-  if (result.ledger_index_min <= _ledger_index) {
+
+  //OLD
+  //if(result.ledger_index_min <= _ledger_index){
+  //NEW
+  if (nft_cti > 0 && result.ledger_index_min <= _ledger_index) {
     detected_hot_wallet_obj.certified = true;
     //printWithPrefix("Hot Wallet certified", _prefix);
   }
@@ -578,14 +594,15 @@ export const getNFTMetadata = async function (issuer_address, nft_id, network) {
   };
 };
 
-export const getNFTImage = async function (content_cid) {
-  const _prefix = "getNFTImage(): ";
+export const getNFTContent = async function (content_cid) {
+  const _prefix = "getNFTContent(): ";
 
   //if the CID is not null or undefined
   var image_object_url = null;
+  var image_object_type = null;
   //printWithPrefix("fetching image from CID " + content_cid + "...", _prefix);
   await IPFSFetch(content_cid)
-    .then((response) => {
+    .then(async (response) => {
       if (isUndefinedOrNull(response)) {
         throw new Error(
           "Fetching operation gave undefined or null as a response"
@@ -596,13 +613,13 @@ export const getNFTImage = async function (content_cid) {
     })
     .then((image_blob) => {
       image_object_url = URL.createObjectURL(image_blob);
+      image_object_type = image_blob.type;
     })
     .catch((error) => {
       //printWithPrefix("image retrieval for " + content_cid + " (maybe partially) failed", _prefix);
       printErrorWithPrefix(error, _prefix);
       throw error;
     });
-
   //printWithPrefix("returning image_object_url as " + image_object_url, _prefix);
-  return image_object_url;
+  return { url: image_object_url, type: image_object_type };
 };

@@ -1,5 +1,5 @@
 $backgroundImage: "../../images/background.jpg";
-
+$backgroundImageLight: "../../images/background-light-2.jpg";
 #forma-wrapper::before {
   background-color: rgb(0, 0, 0);
 }
@@ -7,7 +7,7 @@ $backgroundImage: "../../images/background.jpg";
 #form-wrapper {
   position: relative;
   height: 100vh;
-  background-image: url(#{$backgroundImage});
+  background-image: url(#{$backgroundImageLight});
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -24,7 +24,7 @@ $backgroundImage: "../../images/background.jpg";
     flex-direction: column;
     justify-content: space-around;
     text-align: center;
-    padding: 2rem 4rem;
+    padding: 2rem 2rem;
 
     p {
       margin: 0.5em;

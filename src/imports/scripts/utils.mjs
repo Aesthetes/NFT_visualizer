@@ -48,7 +48,7 @@ export const attachEvent = function (
 };
 
 export const printWithPrefix = function (to_print, _prefix) {
-  console.log(_prefix + to_print);
+  // console.log(_prefix + to_print);
 };
 
 export const printErrorWithPrefix = function (error, _prefix) {
