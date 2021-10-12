@@ -11,10 +11,14 @@
     "name": "Name",
     "author": "Author",
     "description": "Description",
-    "back": "BACK",
+    "back": "Back",
     "nftInfo": "NFT Info",
     "backToVisualizer": "BACK to Visualizer",
-    "onChainInfo": "On-chain information"
+    "artwork": "Digital Artwork",
+    "nftMeta": "NFT Metadata",
+    "onChainInfo": "On-chain information",
+    "issuingData": "Issuing Data",
+    "ownerAccount": "Owner Account"
   },
   "error": {
     "search": "Search another NFT"

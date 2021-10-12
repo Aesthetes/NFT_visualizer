@@ -11,10 +11,14 @@
     "name": "Nome",
     "author": "Autore",
     "description": "Descrizione",
-    "back": "INDIETRO",
+    "back": "Indietro",
     "nftInfo": "Dettagli NFT",
     "backToVisualizer": "Visualizzatore",
-    "onChainInfo": ""
+    "artwork": "Opera Digitale",
+    "nftMeta": "Metadati NFT",
+    "onChainInfo": "Informazioni On-Chain",
+    "issuingData": "Dati Emessi",
+    "ownerAccount": "Account Proprietario"
   },
   "error": {
     "search": "Cerca un altro NFT"

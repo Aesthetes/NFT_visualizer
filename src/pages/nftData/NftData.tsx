@@ -194,7 +194,9 @@ const NftDataPage = (props: any) => {
                       style={{ marginLeft: "32px" }}
                       onClick={() => history.push("/")}
                     >
-                      <p className="go-back-text">{t("nftData.back")}</p>
+                      <p className="go-back-text">
+                        {t("nftData.back").toUpperCase()}
+                      </p>
                       <OnlyArrowBack />
                     </div>
                     <div
@@ -294,7 +296,7 @@ const NftDataPage = (props: any) => {
                               target={"_blank"}
                               rel="noreferrer"
                             >
-                              DIGITAL ARTWORK
+                              {t("nftData.artwork").toUpperCase()}
                             </a>
                             <a
                               className="link-btn"
@@ -302,13 +304,13 @@ const NftDataPage = (props: any) => {
                               target={"_blank"}
                               rel="noreferrer"
                             >
-                              NFT METADATA
+                              {t("nftData.nftMeta").toUpperCase()}
                             </a>
                           </div>
                         </div>
                         <div className="onchain-info-container">
                           <div className="link-label">
-                            <p>On-chain information</p>
+                            <p>{t("nftData.onChainInfo")}</p>
                           </div>
                           <div className="links-row">
                             <div className="links-btn-container">
@@ -318,7 +320,7 @@ const NftDataPage = (props: any) => {
                                 target={"_blank"}
                                 rel="noreferrer"
                               >
-                                ISSUING DATA
+                                {t("nftData.issuingData").toUpperCase()}
                               </a>
                               <a
                                 className="link-btn"
@@ -326,7 +328,7 @@ const NftDataPage = (props: any) => {
                                 target={"_blank"}
                                 rel="noreferrer"
                               >
-                                OWNER ACCOUNT
+                                {t("nftData.ownerAccount").toUpperCase()}
                               </a>
                             </div>
                           </div>
@@ -404,8 +406,12 @@ const NftDataPage = (props: any) => {
                 <div
                   className="back-arrow-container"
                   onClick={() => history.push("/")}
+                  style={{ width: "auto" }}
                 >
-                  <BackArrow />
+                  <p className="go-back-text">
+                    {t("nftData.back").toUpperCase()}
+                  </p>
+                  <OnlyArrowBack />
                 </div>
               </div>
               <div className="bottom-drawer">
@@ -451,7 +457,7 @@ const NftDataPage = (props: any) => {
                       target={"_blank"}
                       rel="noreferrer"
                     >
-                      DIGITAL ARTWORK
+                      {t("nftData.artwork").toUpperCase()}
                     </a>
                     <a
                       className="link-btn"
@@ -459,13 +465,13 @@ const NftDataPage = (props: any) => {
                       target={"_blank"}
                       rel="noreferrer"
                     >
-                      NFT METADATA
+                      {t("nftData.nftMeta").toUpperCase()}
                     </a>
                   </div>
 
                   <div className="links-row-2">
                     <div className="link-label">
-                      <p>On-chain information</p>
+                      <p>{t("nftData.onChainInfo")}</p>
                     </div>
                     <div className="links-row-2-inner">
                       <a
@@ -474,7 +480,7 @@ const NftDataPage = (props: any) => {
                         target={"_blank"}
                         rel="noreferrer"
                       >
-                        ISSUING DATA
+                        {t("nftData.issuingData").toUpperCase()}
                       </a>
                       <a
                         className="link-btn"
@@ -482,7 +488,7 @@ const NftDataPage = (props: any) => {
                         target={"_blank"}
                         rel="noreferrer"
                       >
-                        OWNER ACCOUNT
+                        {t("nftData.ownerAccount").toUpperCase()}
                       </a>
                     </div>
                   </div>
