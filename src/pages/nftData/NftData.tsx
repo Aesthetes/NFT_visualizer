@@ -12,6 +12,7 @@ import {
   getNFTContent,
 } from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 //Components
 import Navbar from "../../components/navbar/Navbar";
@@ -98,6 +99,10 @@ const NftDataPage = (props: any) => {
       enabled: activeQuery,
     }
   );
+
+  const { data: xummURL } = useQuery("xummURL", async () => {
+    axios.get("", {});
+  });
 
   const currentNetwork = match.params.network;
   const currentNetworkForUrl = currentNetwork === "testnet" ? "test." : "";
@@ -274,48 +279,57 @@ const NftDataPage = (props: any) => {
                     </div>
                     <div className="second-row">
                       <div className="links-container">
-                        <div className="links-row">
+                        <div className="links-btn-container">
+                          <a
+                            className="link-btn"
+                            href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
+                            target={"_blank"}
+                            rel="noreferrer"
+                          >
+                            DIGITAL ARTWORK
+                          </a>
+                          <a
+                            className="link-btn"
+                            href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
+                            target={"_blank"}
+                            rel="noreferrer"
+                          >
+                            NFT METADATA
+                          </a>
+                        </div>
+
+                        <div className="onchain-info-container">
+                          <div className="link-label">
+                            <p>On-chain information</p>
+                          </div>
+
                           <div className="links-btn-container">
                             <a
                               className="link-btn"
-                              href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
+                              href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.metadata_tx_hash}`}
                               target={"_blank"}
                               rel="noreferrer"
                             >
-                              DIGITAL ARTWORK
+                              ISSUING DATA
                             </a>
                             <a
                               className="link-btn"
-                              href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
+                              href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.actual_nft_owner}`}
                               target={"_blank"}
                               rel="noreferrer"
                             >
-                              NFT METADATA
+                              OWNER ACCOUNT
                             </a>
                           </div>
                         </div>
                         <div className="onchain-info-container">
                           <div className="link-label">
-                            <p>On-chain information</p>
+                            <p>TrustLine Link</p>
                           </div>
-                          <div className="links-row">
-                            <div className="links-btn-container">
-                              <a
-                                className="link-btn"
-                                href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.metadata_tx_hash}`}
-                                target={"_blank"}
-                                rel="noreferrer"
-                              >
-                                ISSUING DATA
-                              </a>
-                              <a
-                                className="link-btn"
-                                href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.actual_nft_owner}`}
-                                target={"_blank"}
-                                rel="noreferrer"
-                              >
-                                OWNER ACCOUNT
-                              </a>
+
+                          <div className="links-btn-container">
+                            <div className="link-btn" style={{ flex: 1 }}>
+                              GENERATE TRUSTLINE LINK
                             </div>
                           </div>
                         </div>
@@ -466,6 +480,15 @@ const NftDataPage = (props: any) => {
                       >
                         OWNER ACCOUNT
                       </a>
+                    </div>
+                  </div>
+                  <div className="links-row-2">
+                    <div className="link-label">
+                      <p>TrustLine Link</p>
+                    </div>
+
+                    <div className="links-row-2-inner">
+                      <div className="link-btn">GENERATE TRUSTLINE LINK</div>
                     </div>
                   </div>
                 </div>
