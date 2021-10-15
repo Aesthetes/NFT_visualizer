@@ -1,5 +1,5 @@
 //Imports
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,6 +18,14 @@ import axios from "axios";
 import Navbar from "../../components/navbar/Navbar";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import ReactPlayer from "react-player";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import { QRCode } from "react-qrcode-logo";
 
 //Images and icons
 import { FaChevronUp } from "react-icons/fa";
@@ -59,8 +67,9 @@ const NftDataPage = (props: any) => {
   const [play, setPlay] = useState(true);
   const [artwork, setArtwork] = useState<any>("");
   const [contentType, setContentType] = useState<any>("");
+  const [openQrCode, setOpenQrCode] = useState(false);
   const [nftData, setNftData] = useState<any>({
-    identifier: "",
+    currency_identifier: "",
     actual_nft_owner: "",
     detected_hot_wallet_obj: "",
     detected_minter_obj: "",
@@ -77,7 +86,7 @@ const NftDataPage = (props: any) => {
     query: "(max-width: 768px)",
   });
 
-  const { isFetching: loading } = useQuery(
+  const { isFetching: loading, data: xummURL } = useQuery(
     "featchNFTData",
     async () => {
       try {
@@ -90,6 +99,18 @@ const NftDataPage = (props: any) => {
 
         setArtwork(url);
         setContentType(type);
+
+        let qrData = axios
+          .post(
+            "https://europe-west1-xrplnft.cloudfunctions.net/api/generateLink",
+            {
+              issuer_address: match.params.issuer,
+              currency_id_hex_string: data.currency_identifier,
+            }
+          )
+          .then((res: any) => res.data.url);
+
+        return qrData;
       } catch (e) {
         console.log(e);
         setError(true);
@@ -99,10 +120,6 @@ const NftDataPage = (props: any) => {
       enabled: activeQuery,
     }
   );
-
-  const { data: xummURL } = useQuery("xummURL", async () => {
-    axios.get("", {});
-  });
 
   const currentNetwork = match.params.network;
   const currentNetworkForUrl = currentNetwork === "testnet" ? "test." : "";
@@ -135,6 +152,25 @@ const NftDataPage = (props: any) => {
           />
         </div>
       )}
+      <Modal
+        isOpen={openQrCode}
+        onClose={() => setOpenQrCode(false)}
+        isCentered={true}
+      >
+        <ModalOverlay />
+        <ModalContent
+          width={280}
+          height={280}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          // backgroundColor={"blackAlpha.100"}
+        >
+          <QRCode size={240} value={xummURL} />
+        </ModalContent>
+      </Modal>
       <div id={`single-nft-container`} style={isMobile ? {} : { width: "90%" }}>
         <Navbar />
         <Swiper
@@ -327,7 +363,13 @@ const NftDataPage = (props: any) => {
                             <p>TrustLine Link</p>
                           </div>
 
-                          <div className="links-btn-container">
+                          <div
+                            className="links-btn-container"
+                            onClick={() => {
+                              setIsDrawerOpen(false);
+                              setOpenQrCode(true);
+                            }}
+                          >
                             <div className="link-btn" style={{ flex: 1 }}>
                               GENERATE TRUSTLINE LINK
                             </div>
@@ -487,7 +529,13 @@ const NftDataPage = (props: any) => {
                       <p>TrustLine Link</p>
                     </div>
 
-                    <div className="links-row-2-inner">
+                    <div
+                      className="links-row-2-inner"
+                      onClick={() => {
+                        setIsDrawerOpen(false);
+                        setOpenQrCode(true);
+                      }}
+                    >
                       <div className="link-btn">GENERATE TRUSTLINE LINK</div>
                     </div>
                   </div>

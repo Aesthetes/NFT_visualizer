@@ -228,10 +228,6 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
     certified: false,
   };
 
-  //TODO PUSH THESE CHANGES
-  //OLD
-  //const _ledger_index = ctiLedgerIndex(nft_cti);
-  //NEW
   var _ledger_index;
   if (nft_cti > 0) {
     _ledger_index = ctiLedgerIndex(nft_cti);
@@ -246,9 +242,6 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
     ledger_index_max: -1,
   });
 
-  //OLD
-  //if(result.ledger_index_min <= _ledger_index){
-  //NEW
   if (nft_cti > 0 && result.ledger_index_min <= _ledger_index) {
     detected_hot_wallet_obj.certified = true;
     //printWithPrefix("Hot Wallet certified", _prefix);
@@ -309,7 +302,7 @@ async function getHotWallet(issuer_address, nft_id, nft_cti, ripple_api_obj) {
     detected_hot_wallet_obj.certified &&
     detected_hot_wallet_obj.value === null
   ) {
-    //if we got all the Tx for prior to the one referenced
+    //if we got all the Txs prior to the one referenced
     //by the CTI, then we must also have the issuing Tx, so the hot wallet. If not, it means that there were no Txs concerning
     //this currency, therefore the balance check we just performed earlier must have thrown an error.
     //In any case, here something went wrong.
@@ -361,6 +354,7 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
   }
 
   var detected_cti = null;
+  var detected_full_currency_id = null;
   var actual_nft_owner = null;
   var _nft_id = null;
   var _nft_cti = null;
@@ -389,6 +383,7 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
     } else {
       //if it's the 1st cti you found (i.e., the 1st balance w/ the last 12 bytes interested), save it
       detected_cti = _nft_cti;
+      detected_full_currency_id = balances[i].currency;
     }
     //now you are sure that this is the currency you are interested in
 
@@ -422,7 +417,12 @@ async function getActualNFTOwner(issuer_address, nft_id, ripple_api_obj) {
     //if detected_cti remained null it means that no currency with that name were found,
     throw Error("no currency with that name were found"); //so it's an error
   }
-  return { is_ok: true, value: actual_nft_owner, cti: detected_cti };
+  return {
+    is_ok: true,
+    value: actual_nft_owner,
+    cti: detected_cti,
+    full_currency_id: detected_full_currency_id,
+  };
 }
 async function isBlackHoled(issuer_address_settings) {
   if (
@@ -473,6 +473,7 @@ async function isNFT(issuer_address, nft_id, ripple_api_obj) {
   const actual_nft_owner = actual_nft_owner_obj.value;
   const detected_hot_wallet_obj = detected_hot_wallet_obj_obj.value;
   const detected_cti = actual_nft_owner_obj.cti;
+  const detected_full_currency_id = actual_nft_owner_obj.full_currency_id;
 
   //if no one has 1e-96 in its account then there's no owner, but it's ok
   //this could happen if someone sends the NFT without having the counterparty to first open the trustline to it
@@ -485,6 +486,7 @@ async function isNFT(issuer_address, nft_id, ripple_api_obj) {
     actual_nft_owner: actual_nft_owner,
     detected_hot_wallet_obj: detected_hot_wallet_obj,
     detected_cti: detected_cti,
+    detected_full_currency_id: detected_full_currency_id,
     issuer_address_settings: issuer_address_settings,
   };
 }
@@ -580,7 +582,9 @@ export const getNFTMetadata = async function (issuer_address, nft_id, network) {
   //console.log(_prefix + "metadata = ", metadata);
 
   return {
-    identifier: isUndefinedOrNull(metadata.name) ? nft_id : metadata.name,
+    currency_identifier: isUndefinedOrNull(is_nft.detected_full_currency_id)
+      ? null
+      : is_nft.detected_full_currency_id,
     actual_nft_owner: is_nft.actual_nft_owner,
     detected_hot_wallet_obj: is_nft.detected_hot_wallet_obj,
     detected_minter_obj: detected_minter_obj,
