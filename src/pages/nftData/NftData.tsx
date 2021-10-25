@@ -179,6 +179,7 @@ const NftDataPage = (props: any) => {
           pagination={{ clickable: true }}
           spaceBetween={0}
           slidesPerView={1}
+          watchSlidesVisibility
           navigation={{
             nextEl: ".back-arrow-container-desktop",
             prevEl: ".back-arrow-container-desktop-prev",
@@ -191,6 +192,7 @@ const NftDataPage = (props: any) => {
                 style={{
                   width: "100%",
                   height: "100vh",
+                  overflow: "hidden",
                 }}
               >
                 <div id="artwork-container">
