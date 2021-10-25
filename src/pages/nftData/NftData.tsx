@@ -1,5 +1,5 @@
 //Imports
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,13 +7,25 @@ import { useMediaQuery } from "react-responsive";
 import { useQuery } from "react-query";
 import Lottie from "react-lottie-player";
 import loaderAnimationData from "../../lotties/loader.json";
-import { getNFTMetadata, getNFTImage } from "../../imports/scripts/NFT_handler";
+import {
+  getNFTMetadata,
+  getNFTContent,
+} from "../../imports/scripts/NFT_handler";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 //Components
 import Navbar from "../../components/navbar/Navbar";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import ReactPlayer from "react-player";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import { QRCode } from "react-qrcode-logo";
 
 //Images and icons
 import { FaChevronUp } from "react-icons/fa";
@@ -47,8 +59,6 @@ const NftDataPage = (props: any) => {
   const { match } = props;
   const history = useHistory();
 
-  const videoRef = useRef();
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [issuer] = useState(match.params.issuer);
   const [id] = useState(match.params.id);
@@ -57,8 +67,9 @@ const NftDataPage = (props: any) => {
   const [play, setPlay] = useState(true);
   const [artwork, setArtwork] = useState<any>("");
   const [contentType, setContentType] = useState<any>("");
+  const [openQrCode, setOpenQrCode] = useState(false);
   const [nftData, setNftData] = useState<any>({
-    identifier: "",
+    currency_identifier: "",
     actual_nft_owner: "",
     detected_hot_wallet_obj: "",
     detected_minter_obj: "",
@@ -75,7 +86,7 @@ const NftDataPage = (props: any) => {
     query: "(max-width: 768px)",
   });
 
-  const { isFetching: loading } = useQuery(
+  const { isFetching: loading, data: xummURL } = useQuery(
     "featchNFTData",
     async () => {
       try {
@@ -84,10 +95,22 @@ const NftDataPage = (props: any) => {
 
         setNftData(data);
 
-        let { url, type } = await getNFTImage(data.content_cid);
+        let { url, type } = await getNFTContent(data.content_cid);
 
         setArtwork(url);
         setContentType(type);
+
+        let qrData = axios
+          .post(
+            "https://europe-west1-xrplnft.cloudfunctions.net/api/generateLink",
+            {
+              issuer_address: match.params.issuer,
+              currency_id_hex_string: data.currency_identifier,
+            }
+          )
+          .then((res: any) => res.data.url);
+
+        return qrData;
       } catch (e) {
         console.log(e);
         setError(true);
@@ -129,6 +152,25 @@ const NftDataPage = (props: any) => {
           />
         </div>
       )}
+      <Modal
+        isOpen={openQrCode}
+        onClose={() => setOpenQrCode(false)}
+        isCentered={true}
+      >
+        <ModalOverlay />
+        <ModalContent
+          width={280}
+          height={280}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          // backgroundColor={"blackAlpha.100"}
+        >
+          <QRCode size={240} value={xummURL} />
+        </ModalContent>
+      </Modal>
       <div id={`single-nft-container`} style={isMobile ? {} : { width: "90%" }}>
         <Navbar />
         <Swiper
@@ -183,13 +225,17 @@ const NftDataPage = (props: any) => {
                   </div>
                   <div className="navigation-arrows">
                     <div
-                      className="back-arrow-container-desktop"
+                      className="back-arrow-container-desktop left"
+                      style={{ marginLeft: "32px" }}
                       onClick={() => history.push("/")}
                     >
                       <p className="go-back-text">Back</p>
                       <OnlyArrowBack />
                     </div>
-                    <div className="back-arrow-container-desktop">
+                    <div
+                      className="back-arrow-container-desktop right"
+                      style={{ marginRight: "32px" }}
+                    >
                       <p className="go-to-details">NFT Info</p>
                       <OnlyArrowForward />
                     </div>
@@ -204,7 +250,15 @@ const NftDataPage = (props: any) => {
                       <img id="artwork-small" alt="opera" src={artwork} />
                     )}
                     {contentType?.includes("video") && (
-                      <div id={"artwork-small"}>
+                      <div
+                        id={"artwork-small"}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: "auto",
+                        }}
+                      >
                         <ReactPlayer
                           controls
                           playing={play}
@@ -217,16 +271,14 @@ const NftDataPage = (props: any) => {
                       </div>
                     )}
                     <div className="third-row">
-                      <div className="go-back">
-                        <div className="back-arrow-container-desktop-prev">
-                          <p
-                            className="go-back-text"
-                            style={{ fontSize: "16px" }}
-                          >
-                            BACK to Visualizer
-                          </p>
-                          <OnlyArrowBack />
-                        </div>
+                      <div className="back-arrow-container-desktop-prev left">
+                        <p
+                          className="go-back-text"
+                          style={{ fontSize: "16px" }}
+                        >
+                          BACK to Visualizer
+                        </p>
+                        <OnlyArrowBack />
                       </div>
                     </div>
                   </div>
@@ -263,48 +315,63 @@ const NftDataPage = (props: any) => {
                     </div>
                     <div className="second-row">
                       <div className="links-container">
-                        <div className="links-row">
+                        <div className="links-btn-container">
+                          <a
+                            className="link-btn"
+                            href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
+                            target={"_blank"}
+                            rel="noreferrer"
+                          >
+                            DIGITAL ARTWORK
+                          </a>
+                          <a
+                            className="link-btn"
+                            href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
+                            target={"_blank"}
+                            rel="noreferrer"
+                          >
+                            NFT METADATA
+                          </a>
+                        </div>
+
+                        <div className="onchain-info-container">
+                          <div className="link-label">
+                            <p>On-chain information</p>
+                          </div>
+
                           <div className="links-btn-container">
                             <a
                               className="link-btn"
-                              href={`https://gateway.pinata.cloud/ipfs/${nftData.content_cid}`}
+                              href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.metadata_tx_hash}`}
                               target={"_blank"}
                               rel="noreferrer"
                             >
-                              DIGITAL ARTWORK
+                              ISSUING DATA
                             </a>
                             <a
                               className="link-btn"
-                              href={`https://gateway.pinata.cloud/ipfs/${nftData.metadata_cid}`}
+                              href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.actual_nft_owner}`}
                               target={"_blank"}
                               rel="noreferrer"
                             >
-                              NFT METADATA
+                              OWNER ACCOUNT
                             </a>
                           </div>
                         </div>
                         <div className="onchain-info-container">
                           <div className="link-label">
-                            <p>On-chain information</p>
+                            <p>TrustLine Link</p>
                           </div>
-                          <div className="links-row">
-                            <div className="links-btn-container">
-                              <a
-                                className="link-btn"
-                                href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.metadata_tx_hash}`}
-                                target={"_blank"}
-                                rel="noreferrer"
-                              >
-                                ISSUING DATA
-                              </a>
-                              <a
-                                className="link-btn"
-                                href={`https://${currentNetworkForUrl}bithomp.com/explorer/${nftData.actual_nft_owner}`}
-                                target={"_blank"}
-                                rel="noreferrer"
-                              >
-                                OWNER ACCOUNT
-                              </a>
+
+                          <div
+                            className="links-btn-container"
+                            onClick={() => {
+                              setIsDrawerOpen(false);
+                              setOpenQrCode(true);
+                            }}
+                          >
+                            <div className="link-btn" style={{ flex: 1 }}>
+                              GENERATE TRUSTLINE LINK
                             </div>
                           </div>
                         </div>
@@ -455,6 +522,21 @@ const NftDataPage = (props: any) => {
                       >
                         OWNER ACCOUNT
                       </a>
+                    </div>
+                  </div>
+                  <div className="links-row-2">
+                    <div className="link-label">
+                      <p>TrustLine Link</p>
+                    </div>
+
+                    <div
+                      className="links-row-2-inner"
+                      onClick={() => {
+                        setIsDrawerOpen(false);
+                        setOpenQrCode(true);
+                      }}
+                    >
+                      <div className="link-btn">GENERATE TRUSTLINE LINK</div>
                     </div>
                   </div>
                 </div>

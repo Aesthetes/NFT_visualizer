@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "lib": ["esnext", "esnext.bigint"],
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "types": ["node"]
+  },
+  "compileOnSave": true,
+  "include": ["src"]
+}
