@@ -10,9 +10,14 @@ import {
 import "./App.css";
 import ErrorPage from "./pages/error/ErrorPage";
 
+import ReactGA from "react-ga";
+
 delete theme.styles.global;
 
 function App() {
+  ReactGA.initialize("UA-211269498-1");
+  ReactGA.pageview(window.location.pathname + window.location.search);
+
   return (
     <ChakraProvider theme={theme} resetCSS={false}>
       <Router>
